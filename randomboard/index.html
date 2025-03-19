@@ -164,11 +164,11 @@
 
     <script>
         let postCount = 0;
-        let onlineUsers = Math.floor(Math.random() * 50) + 20; // Random number between 20-70
+        let onlineUsers = Math.floor(Math.random() * 50) + 20;
         
         // Update online users periodically
         setInterval(() => {
-            onlineUsers += Math.floor(Math.random() * 3) - 1; // Random change between -1 and 1
+            onlineUsers += Math.floor(Math.random() * 3) - 1;
             if (onlineUsers < 20) onlineUsers = 20;
             if (onlineUsers > 70) onlineUsers = 70;
             document.getElementById('onlineUsers').textContent = onlineUsers;
@@ -190,6 +190,27 @@
                    `${pad(now.getHours())}:${pad(now.getMinutes())}:${pad(now.getSeconds())}`;
         }
 
+        function createPostElement(title, content, timestamp = null) {
+            const postId = generatePostId();
+            const postDiv = document.createElement("div");
+            postDiv.classList.add("post");
+            
+            postDiv.innerHTML = `
+                <div class="post-header">
+                    <span class="post-id">#${postId}</span>
+                    ${title ? `<strong> | ${title}</strong>` : ''}
+                    <div class="post-meta">Posted at ${timestamp || formatTimestamp()}</div>
+                </div>
+                <div class="post-content">${content}</div>
+                <div class="post-actions">
+                    <button class="action-btn" onclick="replyTo('${postId}')">Reply</button>
+                    <button class="action-btn" onclick="reportPost('${postId}')">Report</button>
+                </div>
+            `;
+            
+            return postDiv;
+        }
+
         function addPost() {
             const title = document.getElementById("postTitle").value.trim();
             const content = document.getElementById("postContent").value;
@@ -203,24 +224,7 @@
             document.getElementById('totalPosts').textContent = postCount;
             
             const postList = document.getElementById("postList");
-            const postDiv = document.createElement("div");
-            postDiv.classList.add("post");
-            
-            const postId = generatePostId();
-            
-            postDiv.innerHTML = `
-                <div class="post-header">
-                    <span class="post-id">#${postId}</span>
-                    ${title ? `<strong> | ${title}</strong>` : ''}
-                    <div class="post-meta">Posted at ${formatTimestamp()}</div>
-                </div>
-                <div class="post-content">${content}</div>
-                <div class="post-actions">
-                    <button class="action-btn" onclick="replyTo('${postId}')">Reply</button>
-                    <button class="action-btn" onclick="reportPost('${postId}')">Report</button>
-                </div>
-            `;
-            
+            const postDiv = createPostElement(title, content);
             postList.prepend(postDiv);
             
             // Clear inputs
@@ -238,35 +242,36 @@
             alert(`Post #${postId} has been reported to moderators.`);
         }
 
-        // Add some initial random posts
-        const randomTitles = [
-            "Strange encounter today",
-            "Need advice",
-            "What's going on?",
-            "Interesting theory",
-            "Has anyone else experienced this?"
-        ];
-        
-        const randomContents = [
-            "I've been seeing unusual patterns lately. Anyone else notice this?",
-            "The frequency of these events can't be coincidental.",
-            "Does anyone have more information about this?",
-            "Something feels off about all of this.",
-            "I think we're missing something important here."
-        ];
-
-        // Add random initial posts
-        window.onload = function() {
-            for (let i = 0; i < 5; i++) {
-                setTimeout(() => {
-                    document.getElementById("postTitle").value = 
-                        Math.random() > 0.3 ? randomTitles[Math.floor(Math.random() * randomTitles.length)] : "";
-                    document.getElementById("postContent").value = 
-                        randomContents[Math.floor(Math.random() * randomContents.length)];
-                    addPost();
-                }, i * 100);
+        // Load initial posts from JSON file
+        async function loadInitialPosts() {
+            try {
+                const response = await fetch('initial-posts.json');
+                const data = await response.json();
+                
+                // Shuffle the posts array
+                const shuffledPosts = data.posts.sort(() => Math.random() - 0.5);
+                
+                // Take 5 random posts
+                const selectedPosts = shuffledPosts.slice(0, 5);
+                
+                const postList = document.getElementById("postList");
+                
+                // Add posts with slight delay
+                selectedPosts.forEach((post, index) => {
+                    setTimeout(() => {
+                        const postDiv = createPostElement(post.title, post.content, post.timestamp);
+                        postList.prepend(postDiv);
+                        postCount++;
+                        document.getElementById('totalPosts').textContent = postCount;
+                    }, index * 100);
+                });
+            } catch (error) {
+                console.error('Error loading initial posts:', error);
             }
-        };
+        }
+
+        // Load initial posts when the page loads
+        window.onload = loadInitialPosts;
     </script>
 </body>
 </html>
