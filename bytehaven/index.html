@@ -233,7 +233,7 @@
     <div class="container">
         <div class="header">
             <h1>ByteHaven</h1>
-            <span>Anonymous File Sharing Platform</span>
+            <span>File Sharing Platform</span>
         </div>
         
         <div class="file-explorer">
@@ -317,7 +317,7 @@
                         </div>
                         <div class="file-actions">
                             <button class="action-btn preview-btn" onclick="previewFile('${file.name}')">Preview</button>
-                            <button class="action-btn add-btn" onclick="addToUpload('${file.id}', '${file.name}', '${file.size}')">Add to Upload</button>
+                            <button class="action-btn add-btn" onclick="addToUpload('${file.id}', '${file.name}', '${file.size}')">Add to Queue</button>
                         </div>
                     `;
                     fileList.appendChild(li);
@@ -362,7 +362,7 @@
             const addBtn = document.querySelector(`button.add-btn.added[onclick*="${fileId}"]`);
             if (addBtn) {
                 addBtn.classList.remove('added');
-                addBtn.textContent = 'Add to Upload';
+                addBtn.textContent = 'Add to Queue';
             }
 
             // Disable upload button if no files selected
@@ -417,7 +417,7 @@
             // Reset all add buttons
             document.querySelectorAll('.add-btn.added').forEach(btn => {
                 btn.classList.remove('added');
-                btn.textContent = 'Add to Upload';
+                btn.textContent = 'Add to Queue';
             });
 
             // Disable upload button
