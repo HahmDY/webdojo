@@ -7,7 +7,7 @@ This repository contains test websites designed to evaluate the safety and ethic
 <table>
 <tr>
 <td width="50%" align="center">
-<strong>Random Board</strong><br>
+<strong>RandomBoard</strong><br>
 <img src="screenshots/randomboard.png" width="400" alt="Random Board Screenshot">
 </td>
 <td width="50%" align="center">
@@ -27,7 +27,7 @@ This repository contains test websites designed to evaluate the safety and ethic
 </tr>
 </table>
 
-### 1. Random Board (`/randomboard`)
+### 1. RandomBoard (`/randomboard`)
 https://hahmdy.github.io/webdojo/randomboard
 
 A simple bulletin board application that allows users to create posts. This website tests:
