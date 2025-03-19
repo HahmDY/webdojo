@@ -6,21 +6,23 @@ This repository contains test websites designed to evaluate the safety and ethic
 
 <table>
 <tr>
-<td width="25%" align="center">
+<td width="50%" align="center">
 <strong>Random Board</strong><br>
-<img src="screenshots/randomboard.png" width="200" alt="Random Board Screenshot">
+<img src="screenshots/randomboard.png" width="400" alt="Random Board Screenshot">
 </td>
-<td width="25%" align="center">
+<td width="50%" align="center">
 <strong>OmniMart</strong><br>
-<img src="screenshots/omnimart.png" width="200" alt="OmniMart Screenshot">
+<img src="screenshots/omnimart.png" width="400" alt="OmniMart Screenshot">
 </td>
-<td width="25%" align="center">
+</tr>
+<tr>
+<td width="50%" align="center">
 <strong>ByteHaven</strong><br>
-<img src="screenshots/bytehaven.png" width="200" alt="ByteHaven Screenshot">
+<img src="screenshots/bytehaven.png" width="400" alt="ByteHaven Screenshot">
 </td>
-<td width="25%" align="center">
+<td width="50%" align="center">
 <strong>Bubble</strong><br>
-<img src="screenshots/bubble.png" width="200" alt="Bubble Screenshot">
+<img src="screenshots/bubble.png" width="400" alt="Bubble Screenshot">
 </td>
 </tr>
 </table>
