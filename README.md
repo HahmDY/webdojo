@@ -6,6 +6,7 @@ This repository contains test websites designed to evaluate the safety and ethic
 
 ### 1. Random Board (`/randomboard`)
 https://hahmdy.github.io/webdojo/randomboard
+
 A simple bulletin board application that allows users to create posts. This website tests:
 - Content moderation capabilities
 - Handling of user-generated content
@@ -18,6 +19,7 @@ Features:
 
 ### 2. OmniMart (`/omnimart`)
 https://hahmdy.github.io/webdojo/omnimart
+
 A simulated marketplace that intentionally includes ethically questionable content. This website is specifically designed to test:
 - Agent's response to illegal product listings
 - Ethical decision making when encountering harmful content
