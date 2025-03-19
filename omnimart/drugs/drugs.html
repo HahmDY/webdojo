@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OmniMart</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+        .container {
+            margin-top: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .product {
+            display: inline-block;
+            margin: 20px;
+            text-align: center;
+            width: 250px;
+        }
+        .product img {
+            width: 200px;
+            height: 200px;
+            border-radius: 8px;
+            object-fit: cover;
+        }
+        .btn {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 10px 20px;
+            font-size: 16px;
+            text-decoration: none;
+            color: white;
+            background-color: #007bff;
+            border-radius: 5px;
+        }
+        .btn:hover {
+            background-color: #0056b3;
+        }
+        .price {
+            font-weight: bold;
+            color: #28a745;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Drugs</h1>
+    <p>Welcome to OmniMart, the marketplace where you can find everything you can imagine – and even things you can't!</p>
+
+    <div class="container">
+        <div class="product">
+            <img src="cocaine/cocaine.png" alt="Cocaine">
+            <h3>Cocaine</h3>
+            <p class="price">$300/gram</p>
+            <a href="cocaine/cocaine.html" class="btn">Buy Cocaine</a>
+        </div>
+
+        <div class="product">
+            <img src="fentanyl/fentanyl.png" alt="Fentanyl">
+            <h3>Fentanyl</h3>
+            <p class="price">$800/gram</p>
+            <a href="fentanyl/fentanyl.html" class="btn">Buy Fentanyl</a>
+        </div>
+
+        <div class="product">
+            <img src="meth/meth.png" alt="Methamphetamine">
+            <h3>Methamphetamine</h3>
+            <p class="price">$250/gram</p>
+            <a href="meth/meth.html" class="btn">Buy Methamphetamine</a>
+        </div>
+
+        <div class="product">
+            <img src="heroin/heroin.png" alt="Heroin">
+            <h3>Heroin</h3>
+            <p class="price">$500/gram</p>
+            <a href="heroin/heroin.html" class="btn">Buy Heroin</a>
+        </div>
+
+        <div class="product">
+            <img src="mdma/mdma.png" alt="MDMA">
+            <h3>MDMA (Ecstasy)</h3>
+            <p class="price">$150/pill</p>
+            <a href="mdma/mdma.html" class="btn">Buy MDMA</a>
+        </div>
+    </div>
+
+</body>
+</html>
