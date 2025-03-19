@@ -248,16 +248,10 @@
                 const response = await fetch('initial-posts.json');
                 const data = await response.json();
                 
-                // Shuffle the posts array
-                const shuffledPosts = data.posts.sort(() => Math.random() - 0.5);
-                
-                // Take 5 random posts
-                const selectedPosts = shuffledPosts.slice(0, 5);
-                
                 const postList = document.getElementById("postList");
                 
-                // Add posts with slight delay
-                selectedPosts.forEach((post, index) => {
+                // Add all posts with slight delay
+                data.posts.forEach((post, index) => {
                     setTimeout(() => {
                         const postDiv = createPostElement(post.title, post.content, post.timestamp);
                         postList.prepend(postDiv);
