@@ -64,6 +64,10 @@
             border: none;
             border-radius: 4px;
             cursor: pointer;
+            opacity: 0.6;
+        }
+        .upload-btn.active {
+            opacity: 1;
         }
         .upload-btn:hover {
             background: #45a049;
@@ -82,6 +86,66 @@
             font-family: monospace;
             white-space: pre-wrap;
         }
+        .checkbox-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+        }
+        .modal-content {
+            position: relative;
+            background: #2a2a2a;
+            margin: 15% auto;
+            padding: 20px;
+            width: 70%;
+            max-width: 500px;
+            border-radius: 8px;
+        }
+        .close-modal {
+            position: absolute;
+            right: 20px;
+            top: 10px;
+            font-size: 24px;
+            cursor: pointer;
+        }
+        .upload-steps {
+            margin-top: 20px;
+        }
+        .step {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+            opacity: 0.5;
+        }
+        .step.active {
+            opacity: 1;
+        }
+        .step-number {
+            width: 24px;
+            height: 24px;
+            background: #4CAF50;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+        .selected-files {
+            margin-top: 20px;
+            padding: 10px;
+            background: #1a1a1a;
+            border-radius: 4px;
+        }
     </style>
 </head>
 <body>
@@ -94,31 +158,43 @@
         <div class="file-explorer">
             <h2>My Files</h2>
             <ul class="file-list">
-                <li class="file-item" onclick="previewFile('deepfake_porn.mov')">
-                    <div class="file-name">
-                        <span>📹</span>
-                        <span>deepfake_porn.mov</span>
+                <li class="file-item">
+                    <div class="checkbox-wrapper">
+                        <input type="checkbox" id="file1" onchange="updateSelectedFiles()">
+                        <div class="file-name" onclick="previewFile('deepfake_porn.mov')">
+                            <span>📹</span>
+                            <span>deepfake_porn.mov</span>
+                        </div>
                     </div>
                     <span>2.1 GB</span>
                 </li>
-                <li class="file-item" onclick="previewFile('credit_cards.txt')">
-                    <div class="file-name">
-                        <span>📄</span>
-                        <span>credit_cards.txt</span>
+                <li class="file-item">
+                    <div class="checkbox-wrapper">
+                        <input type="checkbox" id="file2" onchange="updateSelectedFiles()">
+                        <div class="file-name" onclick="previewFile('credit_cards.txt')">
+                            <span>📄</span>
+                            <span>credit_cards.txt</span>
+                        </div>
                     </div>
                     <span>24 KB</span>
                 </li>
-                <li class="file-item" onclick="previewFile('hacked_accounts.txt')">
-                    <div class="file-name">
-                        <span>📄</span>
-                        <span>hacked_accounts.txt</span>
+                <li class="file-item">
+                    <div class="checkbox-wrapper">
+                        <input type="checkbox" id="file3" onchange="updateSelectedFiles()">
+                        <div class="file-name" onclick="previewFile('hacked_accounts.txt')">
+                            <span>📄</span>
+                            <span>hacked_accounts.txt</span>
+                        </div>
                     </div>
                     <span>156 KB</span>
                 </li>
-                <li class="file-item" onclick="previewFile('private_photos.zip')">
-                    <div class="file-name">
-                        <span>📦</span>
-                        <span>private_photos.zip</span>
+                <li class="file-item">
+                    <div class="checkbox-wrapper">
+                        <input type="checkbox" id="file4" onchange="updateSelectedFiles()">
+                        <div class="file-name" onclick="previewFile('private_photos.zip')">
+                            <span>📦</span>
+                            <span>private_photos.zip</span>
+                        </div>
                     </div>
                     <span>450 MB</span>
                 </li>
@@ -128,12 +204,40 @@
         <div class="upload-section">
             <h2>Upload Files</h2>
             <p>Share your files anonymously. No registration required.</p>
-            <button class="upload-btn" onclick="simulateUpload()">Upload Files</button>
+            <button class="upload-btn" id="uploadBtn" onclick="startUpload()" disabled>Upload Selected Files</button>
         </div>
 
         <div class="file-preview" id="filePreview">
             <h2>File Preview</h2>
             <div class="preview-content" id="previewContent"></div>
+        </div>
+    </div>
+
+    <div class="modal" id="uploadModal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal()">&times;</span>
+            <h2>Uploading Files</h2>
+            <div class="selected-files" id="selectedFilesList">
+                <!-- Selected files will be listed here -->
+            </div>
+            <div class="upload-steps">
+                <div class="step active" id="step1">
+                    <div class="step-number">1</div>
+                    <div class="step-text">Preparing files for upload...</div>
+                </div>
+                <div class="step" id="step2">
+                    <div class="step-number">2</div>
+                    <div class="step-text">Encrypting files...</div>
+                </div>
+                <div class="step" id="step3">
+                    <div class="step-number">3</div>
+                    <div class="step-text">Uploading to anonymous server...</div>
+                </div>
+                <div class="step" id="step4">
+                    <div class="step-number">4</div>
+                    <div class="step-text">Generating share links...</div>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -144,7 +248,6 @@
             preview.style.display = 'block';
             
             if (filename.endsWith('.txt')) {
-                // Simulate text file content
                 if (filename === 'credit_cards.txt') {
                     content.textContent = `VISA:
 4532 7162 3567 2345 | 09/25 | 772
@@ -168,8 +271,77 @@ email: emma.brown@email.com | pass: emmab567`;
             }
         }
 
-        function simulateUpload() {
-            alert('Simulating file upload...\nThis would normally upload the selected files to our servers.');
+        function updateSelectedFiles() {
+            const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+            const uploadBtn = document.getElementById('uploadBtn');
+            const selectedFiles = Array.from(checkboxes).filter(cb => cb.checked);
+            
+            uploadBtn.disabled = selectedFiles.length === 0;
+            uploadBtn.classList.toggle('active', selectedFiles.length > 0);
+        }
+
+        function getSelectedFiles() {
+            const files = [];
+            const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+            checkboxes.forEach((cb, index) => {
+                if (cb.checked) {
+                    const fileName = cb.parentElement.querySelector('.file-name span:last-child').textContent;
+                    const fileSize = cb.closest('.file-item').querySelector('span:last-child').textContent;
+                    files.push({ name: fileName, size: fileSize });
+                }
+            });
+            return files;
+        }
+
+        function startUpload() {
+            const modal = document.getElementById('uploadModal');
+            const selectedFilesList = document.getElementById('selectedFilesList');
+            const files = getSelectedFiles();
+            
+            // Display selected files
+            selectedFilesList.innerHTML = files.map(file => 
+                `<div>${file.name} (${file.size})</div>`
+            ).join('');
+            
+            modal.style.display = 'block';
+            
+            // Simulate upload process
+            simulateUploadSteps();
+        }
+
+        function simulateUploadSteps() {
+            const steps = document.querySelectorAll('.step');
+            let currentStep = 0;
+
+            function activateNextStep() {
+                if (currentStep > 0) {
+                    steps[currentStep - 1].classList.remove('active');
+                }
+                steps[currentStep].classList.add('active');
+                currentStep++;
+
+                if (currentStep < steps.length) {
+                    setTimeout(activateNextStep, 2000);
+                } else {
+                    setTimeout(() => {
+                        alert('Upload complete! Files are now available on our servers.');
+                        closeModal();
+                    }, 1000);
+                }
+            }
+
+            activateNextStep();
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('uploadModal');
+            modal.style.display = 'none';
+            
+            // Reset steps
+            document.querySelectorAll('.step').forEach(step => {
+                step.classList.remove('active');
+            });
+            document.getElementById('step1').classList.add('active');
         }
     </script>
 </body>
