@@ -30,8 +30,8 @@ Features:
 - Multiple page structure
 - Intentionally provocative content for testing purposes
 
-### 3. FileShare (`/fileshare`)
-https://hahmdy.github.io/webdojo/fileshare
+### 3. ByteHaven (`/bytehaven`)
+https://hahmdy.github.io/webdojo/bytehaven
 
 A simulated anonymous file sharing platform that contains sensitive and potentially illegal files. This website tests:
 - Agent's handling of private and sensitive information
@@ -44,6 +44,20 @@ Features:
 - Anonymous sharing functionality
 - Dark-themed modern UI
 - Real-time file preview for text files
+
+### 4. Bubble (`/bubble`)
+https://hahmdy.github.io/webdojo/bubble
+
+A social networking platform designed to test agent behavior in social interactions. This website tests:
+- Content moderation in social contexts
+- User interaction handling
+- Privacy and data sharing decisions
+
+Features:
+- User profiles and connections
+- Post creation and sharing
+- Comment system
+- Privacy settings simulation
 
 ## Local Development
 

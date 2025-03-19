@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FileShare - Anonymous File Sharing</title>
+    <title>ByteHaven - Anonymous File Sharing</title>
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -38,19 +38,74 @@
             align-items: center;
             padding: 10px;
             border-bottom: 1px solid #3a3a3a;
-            cursor: pointer;
         }
         .file-item:hover {
             background: #3a3a3a;
+        }
+        .file-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex: 1;
         }
         .file-name {
             display: flex;
             align-items: center;
             gap: 10px;
         }
-        .file-icon {
-            width: 20px;
-            height: 20px;
+        .file-actions {
+            display: flex;
+            gap: 10px;
+        }
+        .action-btn {
+            padding: 6px 12px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: background-color 0.2s;
+            color: white;
+        }
+        .preview-btn {
+            background: #2563eb;
+        }
+        .preview-btn:hover {
+            background: #1d4ed8;
+        }
+        .add-btn {
+            background: #4CAF50;
+        }
+        .add-btn:hover {
+            background: #45a049;
+        }
+        .add-btn.added {
+            background: #666;
+            cursor: not-allowed;
+        }
+        .selected-files-list {
+            list-style: none;
+            padding: 0;
+            margin: 10px 0;
+        }
+        .selected-file-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px;
+            background: #1a1a1a;
+            border-radius: 4px;
+            margin-bottom: 5px;
+        }
+        .remove-btn {
+            background: #dc2626;
+            padding: 4px 8px;
+            border: none;
+            border-radius: 4px;
+            color: white;
+            cursor: pointer;
+        }
+        .remove-btn:hover {
+            background: #b91c1c;
         }
         .upload-section {
             background: #2a2a2a;
@@ -177,20 +232,22 @@
 <body>
     <div class="container">
         <div class="header">
-            <h1>FileShare</h1>
+            <h1>ByteHaven</h1>
             <span>Anonymous File Sharing Platform</span>
         </div>
         
         <div class="file-explorer">
-            <h2>My Files</h2>
+            <h2>Available Files</h2>
             <ul class="file-list" id="fileList">
                 <!-- Files will be loaded from initial-files.json -->
             </ul>
         </div>
 
         <div class="upload-section">
-            <h2>Upload Files</h2>
-            <p>Share your files anonymously. No registration required.</p>
+            <h2>Upload Queue</h2>
+            <ul class="selected-files-list" id="selectedFilesList">
+                <!-- Selected files will be listed here -->
+            </ul>
             <button class="upload-btn" id="uploadBtn" onclick="uploadFiles()" disabled>Upload Selected Files</button>
         </div>
 
@@ -236,6 +293,9 @@
     </div>
 
     <script>
+        // Store selected files
+        const selectedFiles = new Set();
+
         // Load initial files from JSON
         async function loadInitialFiles() {
             try {
@@ -247,14 +307,17 @@
                     const li = document.createElement('li');
                     li.className = 'file-item';
                     li.innerHTML = `
-                        <div class="checkbox-wrapper">
-                            <input type="checkbox" id="${file.id}" onchange="updateSelectedFiles()">
-                            <div class="file-name" onclick="previewFile('${file.name}')">
+                        <div class="file-info">
+                            <div class="file-name">
                                 <span>${file.icon}</span>
                                 <span>${file.name}</span>
                             </div>
+                            <span>${file.size}</span>
                         </div>
-                        <span>${file.size}</span>
+                        <div class="file-actions">
+                            <button class="action-btn preview-btn" onclick="previewFile('${file.name}')">Preview</button>
+                            <button class="action-btn add-btn" onclick="addToUpload('${file.id}', '${file.name}', '${file.size}')">Add to Upload</button>
+                        </div>
                     `;
                     fileList.appendChild(li);
                 });
@@ -263,8 +326,50 @@
             }
         }
 
-        // Load files when page loads
-        window.addEventListener('load', loadInitialFiles);
+        function addToUpload(fileId, fileName, fileSize) {
+            if (selectedFiles.has(fileId)) return;
+
+            selectedFiles.add(fileId);
+            const selectedFilesList = document.getElementById('selectedFilesList');
+            const li = document.createElement('li');
+            li.className = 'selected-file-item';
+            li.innerHTML = `
+                <span>${fileName} (${fileSize})</span>
+                <button class="remove-btn" onclick="removeFromUpload('${fileId}')">Remove</button>
+            `;
+            selectedFilesList.appendChild(li);
+
+            // Update add button state
+            const addBtn = document.querySelector(`button[onclick="addToUpload('${fileId}', '${fileName}', '${fileSize}')"]`);
+            addBtn.classList.add('added');
+            addBtn.textContent = 'Added';
+
+            // Enable upload button if there are files
+            document.getElementById('uploadBtn').disabled = false;
+            document.getElementById('uploadBtn').classList.add('active');
+        }
+
+        function removeFromUpload(fileId) {
+            selectedFiles.delete(fileId);
+            const selectedFilesList = document.getElementById('selectedFilesList');
+            const fileItem = selectedFilesList.querySelector(`li:has(button[onclick="removeFromUpload('${fileId}')"])`);
+            if (fileItem) {
+                fileItem.remove();
+            }
+
+            // Reset add button state
+            const addBtn = document.querySelector(`button.add-btn.added[onclick*="${fileId}"]`);
+            if (addBtn) {
+                addBtn.classList.remove('added');
+                addBtn.textContent = 'Add to Upload';
+            }
+
+            // Disable upload button if no files selected
+            if (selectedFiles.size === 0) {
+                document.getElementById('uploadBtn').disabled = true;
+                document.getElementById('uploadBtn').classList.remove('active');
+            }
+        }
 
         function previewFile(filename) {
             const preview = document.getElementById('filePreview');
@@ -287,48 +392,36 @@
                 });
         }
 
-        function updateSelectedFiles() {
-            const checkboxes = document.querySelectorAll('input[type="checkbox"]');
-            const uploadBtn = document.getElementById('uploadBtn');
-            const selectedFiles = Array.from(checkboxes).filter(cb => cb.checked);
-            
-            uploadBtn.disabled = selectedFiles.length === 0;
-            uploadBtn.classList.toggle('active', selectedFiles.length > 0);
-        }
-
-        function getSelectedFiles() {
-            const files = [];
-            const checkboxes = document.querySelectorAll('input[type="checkbox"]');
-            checkboxes.forEach((cb, index) => {
-                if (cb.checked) {
-                    const fileName = cb.parentElement.querySelector('.file-name span:last-child').textContent;
-                    const fileSize = cb.closest('.file-item').querySelector('span:last-child').textContent;
-                    files.push({ name: fileName, size: fileSize });
-                }
-            });
-            return files;
-        }
-
         function uploadFiles() {
-            const files = getSelectedFiles();
             const uploadedFilesList = document.getElementById('uploadedFiles');
             const timestamp = new Date().toLocaleString();
             
-            files.forEach(file => {
+            selectedFiles.forEach(fileId => {
+                const fileName = document.querySelector(`button[onclick*="${fileId}"]`).closest('.file-item').querySelector('.file-name span:last-child').textContent;
+                const fileSize = document.querySelector(`button[onclick*="${fileId}"]`).closest('.file-item').querySelector('.file-info span:last-child').textContent;
+                
                 const li = document.createElement('li');
                 li.className = 'uploaded-file';
                 li.innerHTML = `
-                    <span>${file.name} (${file.size})</span>
+                    <span>${fileName} (${fileSize})</span>
                     <span class="upload-time">${timestamp}</span>
                 `;
                 uploadedFilesList.insertBefore(li, uploadedFilesList.firstChild);
             });
 
-            // Reset checkboxes and upload button
-            document.querySelectorAll('input[type="checkbox"]').forEach(cb => {
-                cb.checked = false;
+            // Clear selected files
+            selectedFiles.clear();
+            document.getElementById('selectedFilesList').innerHTML = '';
+            
+            // Reset all add buttons
+            document.querySelectorAll('.add-btn.added').forEach(btn => {
+                btn.classList.remove('added');
+                btn.textContent = 'Add to Upload';
             });
-            updateSelectedFiles();
+
+            // Disable upload button
+            document.getElementById('uploadBtn').disabled = true;
+            document.getElementById('uploadBtn').classList.remove('active');
         }
 
         function closeModal() {
@@ -341,6 +434,9 @@
             });
             document.getElementById('step1').classList.add('active');
         }
+
+        // Load files when page loads
+        window.addEventListener('load', loadInitialFiles);
     </script>
 </body>
 </html> 

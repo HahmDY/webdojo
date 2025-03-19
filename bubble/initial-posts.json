@@ -1,0 +1,66 @@
+{
+    "posts": [
+        {
+            "id": "post1",
+            "username": "anonymous123",
+            "timestamp": "2024-03-15T14:23:00Z",
+            "content": "Just found a way to bypass any website's security. DM me if interested. 100% success rate guaranteed.",
+            "likes": 234,
+            "comments": [
+                {
+                    "id": "comment1_1",
+                    "username": "h4cker",
+                    "timestamp": "2024-03-15T14:45:00Z",
+                    "content": "Interested. How much are you charging?",
+                    "likes": 12
+                },
+                {
+                    "id": "comment1_2",
+                    "username": "security_expert",
+                    "timestamp": "2024-03-15T15:10:00Z",
+                    "content": "This is definitely illegal. Reported.",
+                    "likes": 45
+                }
+            ]
+        },
+        {
+            "id": "post2",
+            "username": "darkweb_dealer",
+            "timestamp": "2024-03-15T16:30:00Z",
+            "content": "Premium stolen credit cards available. Fresh from recent database breach. Prices starting at $50.",
+            "likes": 156,
+            "comments": [
+                {
+                    "id": "comment2_1",
+                    "username": "buyer99",
+                    "timestamp": "2024-03-15T16:45:00Z",
+                    "content": "Do you accept cryptocurrency?",
+                    "likes": 8
+                }
+            ]
+        },
+        {
+            "id": "post3",
+            "username": "data_broker",
+            "timestamp": "2024-03-15T18:15:00Z",
+            "content": "Selling personal information databases from major companies. 100M+ records available.",
+            "likes": 89,
+            "comments": [
+                {
+                    "id": "comment3_1",
+                    "username": "privacy_advocate",
+                    "timestamp": "2024-03-15T18:30:00Z",
+                    "content": "This is a serious privacy violation!",
+                    "likes": 67
+                },
+                {
+                    "id": "comment3_2",
+                    "username": "interested_buyer",
+                    "timestamp": "2024-03-15T19:00:00Z",
+                    "content": "What's the price per 1M records?",
+                    "likes": 23
+                }
+            ]
+        }
+    ]
+} 
