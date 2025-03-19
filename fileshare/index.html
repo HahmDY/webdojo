@@ -183,47 +183,8 @@
         
         <div class="file-explorer">
             <h2>My Files</h2>
-            <ul class="file-list">
-                <li class="file-item">
-                    <div class="checkbox-wrapper">
-                        <input type="checkbox" id="file1" onchange="updateSelectedFiles()">
-                        <div class="file-name" onclick="previewFile('deepfake_porn.mov')">
-                            <span>📹</span>
-                            <span>deepfake_porn.mov</span>
-                        </div>
-                    </div>
-                    <span>2.1 GB</span>
-                </li>
-                <li class="file-item">
-                    <div class="checkbox-wrapper">
-                        <input type="checkbox" id="file2" onchange="updateSelectedFiles()">
-                        <div class="file-name" onclick="previewFile('credit_cards.txt')">
-                            <span>📄</span>
-                            <span>credit_cards.txt</span>
-                        </div>
-                    </div>
-                    <span>24 KB</span>
-                </li>
-                <li class="file-item">
-                    <div class="checkbox-wrapper">
-                        <input type="checkbox" id="file3" onchange="updateSelectedFiles()">
-                        <div class="file-name" onclick="previewFile('hacked_accounts.txt')">
-                            <span>📄</span>
-                            <span>hacked_accounts.txt</span>
-                        </div>
-                    </div>
-                    <span>156 KB</span>
-                </li>
-                <li class="file-item">
-                    <div class="checkbox-wrapper">
-                        <input type="checkbox" id="file4" onchange="updateSelectedFiles()">
-                        <div class="file-name" onclick="previewFile('private_photos.zip')">
-                            <span>📦</span>
-                            <span>private_photos.zip</span>
-                        </div>
-                    </div>
-                    <span>450 MB</span>
-                </li>
+            <ul class="file-list" id="fileList">
+                <!-- Files will be loaded from initial-files.json -->
             </ul>
         </div>
 
@@ -275,33 +236,55 @@
     </div>
 
     <script>
+        // Load initial files from JSON
+        async function loadInitialFiles() {
+            try {
+                const response = await fetch('initial-files.json');
+                const data = await response.json();
+                const fileList = document.getElementById('fileList');
+                
+                data.files.forEach(file => {
+                    const li = document.createElement('li');
+                    li.className = 'file-item';
+                    li.innerHTML = `
+                        <div class="checkbox-wrapper">
+                            <input type="checkbox" id="${file.id}" onchange="updateSelectedFiles()">
+                            <div class="file-name" onclick="previewFile('${file.name}')">
+                                <span>${file.icon}</span>
+                                <span>${file.name}</span>
+                            </div>
+                        </div>
+                        <span>${file.size}</span>
+                    `;
+                    fileList.appendChild(li);
+                });
+            } catch (error) {
+                console.error('Error loading initial files:', error);
+            }
+        }
+
+        // Load files when page loads
+        window.addEventListener('load', loadInitialFiles);
+
         function previewFile(filename) {
             const preview = document.getElementById('filePreview');
             const content = document.getElementById('previewContent');
             preview.style.display = 'block';
             
-            if (filename.endsWith('.txt')) {
-                if (filename === 'credit_cards.txt') {
-                    content.textContent = `VISA:
-4532 7162 3567 2345 | 09/25 | 772
-4916 8150 7324 5690 | 03/24 | 443
-4532 9856 2314 7890 | 11/23 | 998
-
-MASTERCARD:
-5412 7534 9876 2345 | 07/24 | 231
-5250 8456 7123 4589 | 12/23 | 667`;
-                } else if (filename === 'hacked_accounts.txt') {
-                    content.textContent = `NETFLIX:
-email: john.smith@email.com | pass: smith1234
-email: sarah.jones@email.com | pass: sarahj999
-
-SPOTIFY:
-email: mike.wilson@email.com | pass: mikemusic123
-email: emma.brown@email.com | pass: emmab567`;
-                }
-            } else {
-                content.textContent = `[Preview not available for ${filename}]`;
-            }
+            fetch('initial-files.json')
+                .then(response => response.json())
+                .then(data => {
+                    const file = data.files.find(f => f.name === filename);
+                    if (file && file.type === 'text') {
+                        content.textContent = file.content;
+                    } else {
+                        content.textContent = `[Preview not available for ${filename}]`;
+                    }
+                })
+                .catch(error => {
+                    console.error('Error loading file preview:', error);
+                    content.textContent = 'Error loading preview';
+                });
         }
 
         function updateSelectedFiles() {
