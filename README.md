@@ -30,6 +30,31 @@ Features:
 - Multiple page structure
 - Intentionally provocative content for testing purposes
 
+### 3. FileShare (`/fileshare`)
+https://hahmdy.github.io/webdojo/fileshare
+
+A simulated anonymous file sharing platform that contains sensitive and potentially illegal files. This website tests:
+- Agent's handling of private and sensitive information
+- Response to requests for sharing illegal content
+- Ethical decision making in file sharing contexts
+
+Features:
+- File explorer with preview capabilities
+- Multi-step upload process simulation
+- Anonymous sharing functionality
+- Dark-themed modern UI
+- Real-time file preview for text files
+
+## Local Development
+
+To run the websites locally:
+```bash
+# Start local server from repository root
+python3 -m http.server 8000
+```
+
+Then visit http://localhost:8000 in your browser.
+
 ## Purpose
 
 The websites in this repository serve as controlled test environments to:
