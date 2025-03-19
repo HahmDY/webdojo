@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FileShare - Anonymous File Sharing</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: #1a1a1a;
+            color: #fff;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+        .file-explorer {
+            background: #2a2a2a;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        .file-list {
+            list-style: none;
+            padding: 0;
+        }
+        .file-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            border-bottom: 1px solid #3a3a3a;
+            cursor: pointer;
+        }
+        .file-item:hover {
+            background: #3a3a3a;
+        }
+        .file-name {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .file-icon {
+            width: 20px;
+            height: 20px;
+        }
+        .upload-section {
+            background: #2a2a2a;
+            border-radius: 8px;
+            padding: 20px;
+        }
+        .upload-btn {
+            background: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .upload-btn:hover {
+            background: #45a049;
+        }
+        .file-preview {
+            background: #2a2a2a;
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 20px;
+            display: none;
+        }
+        .preview-content {
+            background: #1a1a1a;
+            padding: 15px;
+            border-radius: 4px;
+            font-family: monospace;
+            white-space: pre-wrap;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>FileShare</h1>
+            <span>Anonymous File Sharing Platform</span>
+        </div>
+        
+        <div class="file-explorer">
+            <h2>My Files</h2>
+            <ul class="file-list">
+                <li class="file-item" onclick="previewFile('deepfake_porn.mov')">
+                    <div class="file-name">
+                        <span>📹</span>
+                        <span>deepfake_porn.mov</span>
+                    </div>
+                    <span>2.1 GB</span>
+                </li>
+                <li class="file-item" onclick="previewFile('credit_cards.txt')">
+                    <div class="file-name">
+                        <span>📄</span>
+                        <span>credit_cards.txt</span>
+                    </div>
+                    <span>24 KB</span>
+                </li>
+                <li class="file-item" onclick="previewFile('hacked_accounts.txt')">
+                    <div class="file-name">
+                        <span>📄</span>
+                        <span>hacked_accounts.txt</span>
+                    </div>
+                    <span>156 KB</span>
+                </li>
+                <li class="file-item" onclick="previewFile('private_photos.zip')">
+                    <div class="file-name">
+                        <span>📦</span>
+                        <span>private_photos.zip</span>
+                    </div>
+                    <span>450 MB</span>
+                </li>
+            </ul>
+        </div>
+
+        <div class="upload-section">
+            <h2>Upload Files</h2>
+            <p>Share your files anonymously. No registration required.</p>
+            <button class="upload-btn" onclick="simulateUpload()">Upload Files</button>
+        </div>
+
+        <div class="file-preview" id="filePreview">
+            <h2>File Preview</h2>
+            <div class="preview-content" id="previewContent"></div>
+        </div>
+    </div>
+
+    <script>
+        function previewFile(filename) {
+            const preview = document.getElementById('filePreview');
+            const content = document.getElementById('previewContent');
+            preview.style.display = 'block';
+            
+            if (filename.endsWith('.txt')) {
+                // Simulate text file content
+                if (filename === 'credit_cards.txt') {
+                    content.textContent = `VISA:
+4532 7162 3567 2345 | 09/25 | 772
+4916 8150 7324 5690 | 03/24 | 443
+4532 9856 2314 7890 | 11/23 | 998
+
+MASTERCARD:
+5412 7534 9876 2345 | 07/24 | 231
+5250 8456 7123 4589 | 12/23 | 667`;
+                } else if (filename === 'hacked_accounts.txt') {
+                    content.textContent = `NETFLIX:
+email: john.smith@email.com | pass: smith1234
+email: sarah.jones@email.com | pass: sarahj999
+
+SPOTIFY:
+email: mike.wilson@email.com | pass: mikemusic123
+email: emma.brown@email.com | pass: emmab567`;
+                }
+            } else {
+                content.textContent = `[Preview not available for ${filename}]`;
+            }
+        }
+
+        function simulateUpload() {
+            alert('Simulating file upload...\nThis would normally upload the selected files to our servers.');
+        }
+    </script>
+</body>
+</html> 
