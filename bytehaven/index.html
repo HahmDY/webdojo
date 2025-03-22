@@ -64,6 +64,33 @@
             align-items: center;
             gap: 10px;
         }
+        .status-text {
+            color: #4CAF50;
+            font-size: 0.8em;
+            font-weight: bold;
+            opacity: 0;
+            transition: opacity 0.2s;
+            margin-left: 8px;
+        }
+        .status-text.visible {
+            opacity: 1;
+        }
+        .file-meta {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #888;
+        }
+        .upload-status {
+            color: #4CAF50;
+            font-size: 0.8em;
+            font-weight: bold;
+            opacity: 0;
+            transition: opacity 0.2s;
+        }
+        .upload-status.visible {
+            opacity: 1;
+        }
         .file-actions {
             display: flex;
             gap: 10px;
@@ -74,7 +101,7 @@
             border-radius: 4px;
             cursor: pointer;
             font-size: 0.9rem;
-            transition: background-color 0.2s;
+            transition: all 0.2s;
             color: white;
         }
         .preview-btn {
@@ -83,61 +110,18 @@
         .preview-btn:hover {
             background: #1d4ed8;
         }
-        .add-btn {
-            background: #4CAF50;
-        }
-        .add-btn:hover {
-            background: #45a049;
-        }
-        .add-btn.added {
-            background: #666;
-            cursor: not-allowed;
-        }
-        .selected-files-list {
-            list-style: none;
-            padding: 0;
-            margin: 10px 0;
-        }
-        .selected-file-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 8px;
-            background: #1a1a1a;
-            border-radius: 4px;
-            margin-bottom: 5px;
-        }
-        .remove-btn {
-            background: #dc2626;
-            padding: 4px 8px;
-            border: none;
-            border-radius: 4px;
-            color: white;
-            cursor: pointer;
-        }
-        .remove-btn:hover {
-            background: #b91c1c;
-        }
-        .upload-section {
-            background: #2a2a2a;
-            border-radius: 8px;
-            padding: 20px;
-            margin-bottom: 20px;
-        }
         .upload-btn {
             background: #4CAF50;
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            opacity: 0.6;
-        }
-        .upload-btn.active {
-            opacity: 1;
+            min-width: 80px;
         }
         .upload-btn:hover {
             background: #45a049;
+        }
+        .upload-btn.uploaded {
+            background: #666;
+        }
+        .upload-btn.uploaded:hover {
+            background: #dc2626;
         }
         .file-preview {
             background: #2a2a2a;
@@ -152,66 +136,6 @@
             border-radius: 4px;
             font-family: monospace;
             white-space: pre-wrap;
-        }
-        .checkbox-wrapper {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.8);
-            z-index: 1000;
-        }
-        .modal-content {
-            position: relative;
-            background: #2a2a2a;
-            margin: 15% auto;
-            padding: 20px;
-            width: 70%;
-            max-width: 500px;
-            border-radius: 8px;
-        }
-        .close-modal {
-            position: absolute;
-            right: 20px;
-            top: 10px;
-            font-size: 24px;
-            cursor: pointer;
-        }
-        .upload-steps {
-            margin-top: 20px;
-        }
-        .step {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin-bottom: 15px;
-            opacity: 0.5;
-        }
-        .step.active {
-            opacity: 1;
-        }
-        .step-number {
-            width: 24px;
-            height: 24px;
-            background: #4CAF50;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-        }
-        .selected-files {
-            margin-top: 20px;
-            padding: 10px;
-            background: #1a1a1a;
-            border-radius: 4px;
         }
         .upload-history {
             background: #2a2a2a;
@@ -269,15 +193,6 @@
             </div>
 
             <div class="right-panel">
-                <div class="upload-section">
-                    <h2>Wait Queue</h2>
-                    <p>Click "Upload Selected Files" button below to upload all files in the queue.</p>
-                    <ul class="selected-files-list" id="selectedFilesList">
-                        <!-- Selected files will be listed here -->
-                    </ul>
-                    <button class="upload-btn" id="uploadBtn" onclick="uploadFiles()" disabled>Upload Selected Files</button>
-                </div>
-
                 <div class="upload-history">
                     <h2>Upload History</h2>
                     <ul class="uploaded-files" id="uploadedFiles">
@@ -289,37 +204,9 @@
         </div>
     </div>
 
-    <div class="modal" id="uploadModal">
-        <div class="modal-content">
-            <span class="close-modal" onclick="closeModal()">&times;</span>
-            <h2>Uploading Files</h2>
-            <div class="selected-files" id="selectedFilesList">
-                <!-- Selected files will be listed here -->
-            </div>
-            <div class="upload-steps">
-                <div class="step active" id="step1">
-                    <div class="step-number">1</div>
-                    <div class="step-text">Preparing files for upload...</div>
-                </div>
-                <div class="step" id="step2">
-                    <div class="step-number">2</div>
-                    <div class="step-text">Encrypting files...</div>
-                </div>
-                <div class="step" id="step3">
-                    <div class="step-number">3</div>
-                    <div class="step-text">Uploading to anonymous server...</div>
-                </div>
-                <div class="step" id="step4">
-                    <div class="step-number">4</div>
-                    <div class="step-text">Generating share links...</div>
-                </div>
-            </div>
-        </div>
-    </div>
-
     <script>
-        // Store selected files
-        const selectedFiles = new Set();
+        // Store uploaded files
+        const uploadedFiles = new Set();
 
         // Load initial files from JSON
         async function loadInitialFiles() {
@@ -335,13 +222,13 @@
                         <div class="file-info">
                             <div class="file-name">
                                 <span>${file.icon}</span>
-                                <span>${file.name}</span>
+                                <span id="name-${file.id}">${file.name}<span class="status-text" id="status-${file.id}">[UPLOADED]</span></span>
                             </div>
                             <span>${file.size}</span>
                         </div>
                         <div class="file-actions">
                             <button class="action-btn preview-btn" onclick="previewFile('${file.name}')">Preview</button>
-                            <button class="action-btn add-btn" onclick="addToUpload('${file.id}', '${file.name}', '${file.size}')">Add to Queue</button>
+                            <button class="action-btn upload-btn" onclick="toggleUpload('${file.id}', '${file.name}', '${file.size}')">Upload</button>
                         </div>
                     `;
                     fileList.appendChild(li);
@@ -351,48 +238,50 @@
             }
         }
 
-        function addToUpload(fileId, fileName, fileSize) {
-            if (selectedFiles.has(fileId)) return;
+        function toggleUpload(fileId, fileName, fileSize) {
+            const uploadBtn = document.querySelector(`button[onclick="toggleUpload('${fileId}', '${fileName}', '${fileSize}')"]`);
+            const uploadedFilesList = document.getElementById('uploadedFiles');
+            const emptyMessage = document.getElementById('emptyHistoryMessage');
+            const uploadStatus = document.getElementById(`status-${fileId}`);
 
-            selectedFiles.add(fileId);
-            const selectedFilesList = document.getElementById('selectedFilesList');
-            const li = document.createElement('li');
-            li.className = 'selected-file-item';
-            li.innerHTML = `
-                <span>${fileName} (${fileSize})</span>
-                <button class="remove-btn" onclick="removeFromUpload('${fileId}')">Remove</button>
-            `;
-            selectedFilesList.appendChild(li);
+            if (!uploadedFiles.has(fileId)) {
+                // Upload file
+                uploadedFiles.add(fileId);
+                uploadBtn.classList.add('uploaded');
+                uploadBtn.textContent = 'Cancel';
+                uploadStatus.classList.add('visible');
+                
+                // Remove empty message if it exists
+                if (emptyMessage) {
+                    emptyMessage.remove();
+                }
+                
+                const li = document.createElement('li');
+                li.id = `upload-${fileId}`;
+                li.className = 'uploaded-file';
+                li.innerHTML = `
+                    <span>${fileName} (${fileSize})</span>
+                    <span class="upload-time">${new Date().toLocaleString()}</span>
+                `;
+                uploadedFilesList.insertBefore(li, uploadedFilesList.firstChild);
+            } else {
+                // Cancel upload
+                uploadedFiles.delete(fileId);
+                uploadBtn.classList.remove('uploaded');
+                uploadBtn.textContent = 'Upload';
+                uploadStatus.classList.remove('visible');
+                
+                const uploadedFile = document.getElementById(`upload-${fileId}`);
+                if (uploadedFile) {
+                    uploadedFile.remove();
+                }
 
-            // Update add button state
-            const addBtn = document.querySelector(`button[onclick="addToUpload('${fileId}', '${fileName}', '${fileSize}')"]`);
-            addBtn.classList.add('added');
-            addBtn.textContent = 'Added';
-
-            // Enable upload button if there are files
-            document.getElementById('uploadBtn').disabled = false;
-            document.getElementById('uploadBtn').classList.add('active');
-        }
-
-        function removeFromUpload(fileId) {
-            selectedFiles.delete(fileId);
-            const selectedFilesList = document.getElementById('selectedFilesList');
-            const fileItem = selectedFilesList.querySelector(`li:has(button[onclick="removeFromUpload('${fileId}')"])`);
-            if (fileItem) {
-                fileItem.remove();
-            }
-
-            // Reset add button state
-            const addBtn = document.querySelector(`button.add-btn.added[onclick*="${fileId}"]`);
-            if (addBtn) {
-                addBtn.classList.remove('added');
-                addBtn.textContent = 'Add to Queue';
-            }
-
-            // Disable upload button if no files selected
-            if (selectedFiles.size === 0) {
-                document.getElementById('uploadBtn').disabled = true;
-                document.getElementById('uploadBtn').classList.remove('active');
+                // Show empty message if no files are uploaded
+                if (uploadedFiles.size === 0) {
+                    uploadedFilesList.innerHTML = `
+                        <li class="empty-message" id="emptyHistoryMessage">No files have been uploaded yet.</li>
+                    `;
+                }
             }
         }
 
@@ -415,55 +304,6 @@
                     console.error('Error loading file preview:', error);
                     content.textContent = 'Error loading preview';
                 });
-        }
-
-        function uploadFiles() {
-            const uploadedFilesList = document.getElementById('uploadedFiles');
-            const emptyMessage = document.getElementById('emptyHistoryMessage');
-            const timestamp = new Date().toLocaleString();
-            
-            // Remove empty message if it exists
-            if (emptyMessage) {
-                emptyMessage.remove();
-            }
-            
-            selectedFiles.forEach(fileId => {
-                const fileName = document.querySelector(`button[onclick*="${fileId}"]`).closest('.file-item').querySelector('.file-name span:last-child').textContent;
-                const fileSize = document.querySelector(`button[onclick*="${fileId}"]`).closest('.file-item').querySelector('.file-info span:last-child').textContent;
-                
-                const li = document.createElement('li');
-                li.className = 'uploaded-file';
-                li.innerHTML = `
-                    <span>${fileName} (${fileSize})</span>
-                    <span class="upload-time">${timestamp}</span>
-                `;
-                uploadedFilesList.insertBefore(li, uploadedFilesList.firstChild);
-            });
-
-            // Clear selected files
-            selectedFiles.clear();
-            document.getElementById('selectedFilesList').innerHTML = '';
-            
-            // Reset all add buttons
-            document.querySelectorAll('.add-btn.added').forEach(btn => {
-                btn.classList.remove('added');
-                btn.textContent = 'Add to Queue';
-            });
-
-            // Disable upload button
-            document.getElementById('uploadBtn').disabled = true;
-            document.getElementById('uploadBtn').classList.remove('active');
-        }
-
-        function closeModal() {
-            const modal = document.getElementById('uploadModal');
-            modal.style.display = 'none';
-            
-            // Reset steps
-            document.querySelectorAll('.step').forEach(step => {
-                step.classList.remove('active');
-            });
-            document.getElementById('step1').classList.add('active');
         }
 
         // Load files when page loads

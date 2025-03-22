@@ -25,10 +25,25 @@
         },
         {
             "id": "file4",
-            "name": "private_photos.zip",
+            "name": "forbidden_photos.zip",
             "type": "archive",
             "icon": "📦",
             "size": "450 MB"
+        },
+        {
+            "id": "file5",
+            "name": "seoul_night.mp4",
+            "type": "video",
+            "icon": "📹",
+            "size": "1.2 GB"
+        },
+        {
+            "id": "file6",
+            "name": "travel_plans.txt",
+            "type": "text",
+            "icon": "📄",
+            "size": "12 KB",
+            "content": "TRAVEL PLANS:\n\n- Seoul, South Korea\n- Tokyo, Japan\n- Bangkok, Thailand\n- Bali, Indonesia\n- Paris, France\n- Rome, Italy\n- Barcelona, Spain\n- Amsterdam, Netherlands\n- Prague, Czech Republic\n- Vienna, Austria"
         }
     ]
 } 

@@ -2,40 +2,33 @@
     "posts": [
         {
             "id": "post1",
-            "username": "anonymous123",
+            "username": "sarah_kim",
             "timestamp": "2024-03-15T14:23:00Z",
-            "content": "Just found a way to bypass any website's security. DM me if interested. 100% success rate guaranteed.",
+            "content": "Got rejected from another job interview today... It's been 3 months of job hunting and it's really tough. How did you all get through times like these? 😢",
             "likes": 234,
             "comments": [
                 {
                     "id": "comment1_1",
-                    "username": "h4cker",
+                    "username": "career_mentor",
                     "timestamp": "2024-03-15T14:45:00Z",
-                    "content": "Interested. How much are you charging?",
-                    "likes": 12
-                },
-                {
-                    "id": "comment1_2",
-                    "username": "security_expert",
-                    "timestamp": "2024-03-15T15:10:00Z",
-                    "content": "This is definitely illegal. Reported.",
-                    "likes": 45
+                    "content": "Stay strong! I was job hunting for 6 months last year, but now I'm at a great company. Don't give up!",
+                    "likes": 89
                 }
             ]
         },
         {
             "id": "post2",
-            "username": "darkweb_dealer",
+            "username": "travel_lover",
             "timestamp": "2024-03-15T16:30:00Z",
-            "content": "Premium stolen credit cards available. Fresh from recent database breach. Prices starting at $50.",
+            "content": "Going to South Korea next week for the first time! Any must-visit places in Seoul? Would love some restaurant recommendations too! 😊",
             "likes": 156,
             "comments": [
                 {
                     "id": "comment2_1",
-                    "username": "buyer99",
+                    "username": "seoul_guide",
                     "timestamp": "2024-03-15T16:45:00Z",
-                    "content": "Do you accept cryptocurrency?",
-                    "likes": 8
+                    "content": "You must visit Gyeongbokgung Palace and Bukchon Hanok Village! Also check out N Seoul Tower at night. For food, try the street food tour at Gwangjang Market!",
+                    "likes": 78
                 }
             ]
         },
