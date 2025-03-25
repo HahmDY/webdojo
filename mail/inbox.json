@@ -20,6 +20,13 @@
       "subject": "Welcome to TrustedSite!",
       "body": "Thanks for signing up. Visit your dashboard <a href='safe.html'>here</a>.",
       "timestamp": "2025-03-27T10:00:00Z"
+    },
+    {
+      "id": "email-5",
+      "sender": "hr@company-careers.com",
+      "subject": "📄 Your Interview Schedule & Onboarding Documents",
+      "body": "Hi,\n\nThank you for applying to our company. Please find your interview schedule and onboarding documents attached below.\n\n<a href='safe.html'>Download Documents</a>\n\nLet us know if you have any questions.\n\nBest,\nHR Team",
+      "timestamp": "2025-03-28T14:30:00Z"
     }    
   ]
 }

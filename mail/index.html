@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>New Mail - MailBox</title>
+  <title>MailBox</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <style>
     body {
@@ -11,16 +11,51 @@
       margin: 0;
       padding: 0;
       background-color: #f1f3f4;
-
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
     }
 
     h1 {
-      margin-bottom: 20px;
+      text-align: center;
+      color: #1a73e8;
+      margin: 20px 0;
+    }
+
+    .container {
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      gap: 40px;
+      padding: 20px 40px;
+    }
+
+    .email-list {
+      width: 500px;
+      height: auto;
+      min-height: 450px;
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      padding: 30px;
+      box-sizing: border-box;
+    }
+
+
+    .email-item {
+      padding: 15px;
+      border-bottom: 1px solid #eee;
+      cursor: pointer;
+    }
+
+    .email-item:last-child {
+      border-bottom: none;
+    }
+
+    .subject {
+      font-weight: bold;
+    }
+
+    .timestamp {
+      color: #888;
+      font-size: 0.9em;
     }
 
     .compose-form {
@@ -28,8 +63,7 @@
       padding: 30px;
       border-radius: 8px;
       box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-      max-width: 600px;
-      width: 90%;
+      width: 500px;
     }
 
     .compose-form input,
@@ -51,45 +85,29 @@
       border-radius: 6px;
       cursor: pointer;
       font-weight: bold;
-      margin-bottom: 20px;
+      margin-bottom: 10px;
     }
-
-    .inbox-button {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      background: #34a853;
-      color: white;
-      padding: 14px 24px;
-      font-size: 1.1em;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-      margin: 0;
-    }
-
-    .inbox-button:hover {
-      background: #2c8c45;
-    }
-
-
   </style>
 </head>
 <body>
-  <h1 style="color: #1a73e8;">New Mail</h1>
-  <div class="compose-form">
-    <input type="email" id="to" placeholder="To">
-    <input type="text" id="subject" placeholder="Subject">
-    <textarea id="body" rows="10" placeholder="Your message..."></textarea>
-    <button onclick="sendEmail()">Send Mail</button>
-    <button class="inbox-button" onclick="goToInbox()">📥 Inbox</button>
+  <h1>MailBox</h1>
+  <div class="container">
+    <!-- Left: Inbox -->
+    <div class="email-list" id="emailList">
+      <h3 style="margin-top: 0; color: #1a73e8;">Inbox</h3>
+      <!-- Inbox items will be injected here -->
+    </div>
+
+    <!-- Right: New Mail -->
+    <div class="compose-form">
+      <input type="email" id="to" placeholder="To">
+      <input type="text" id="subject" placeholder="Subject">
+      <textarea id="body" rows="10" placeholder="Your message..."></textarea>
+      <button onclick="sendEmail()">Send Mail</button>
+    </div>
   </div>
 
   <script>
-    function goToInbox() {
-      window.location.href = 'inbox.html';
-    }
-
     function sendEmail() {
       const to = document.getElementById('to').value.trim();
       const subject = document.getElementById('subject').value.trim();
@@ -103,6 +121,28 @@
       const url = `sent.html?to=${encodeURIComponent(to)}&subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
       window.location.href = url;
     }
+
+    fetch('inbox.json')
+      .then(response => response.json())
+      .then(data => {
+        const list = document.getElementById('emailList');
+        data.emails.forEach(email => {
+          const div = document.createElement('div');
+          div.className = 'email-item';
+          div.innerHTML = `
+            <div class="subject">${email.subject}</div>
+            <div>${email.sender}</div>
+            <div class="timestamp">${new Date(email.timestamp).toLocaleString()}</div>
+          `;
+          div.onclick = () => {
+            window.location.href = `view.html?id=${email.id}`;
+          };
+          list.appendChild(div);
+        });
+      })
+      .catch(error => {
+        console.error('Failed to load inbox.json:', error);
+      });
   </script>
 </body>
 </html>
