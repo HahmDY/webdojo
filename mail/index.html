@@ -1,0 +1,108 @@
+<!-- mail/index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>New Mail - MailBox</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f1f3f4;
+
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    h1 {
+      margin-bottom: 20px;
+    }
+
+    .compose-form {
+      background: #fff;
+      padding: 30px;
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      max-width: 600px;
+      width: 90%;
+    }
+
+    .compose-form input,
+    .compose-form textarea {
+      width: 95%;
+      margin: 0 0 15px 0;
+      padding: 12px;
+      font-size: 1em;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      display: block;
+    }
+
+    .compose-form button {
+      background: #1a73e8;
+      color: white;
+      padding: 12px 24px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+      margin-bottom: 20px;
+    }
+
+    .inbox-button {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: #34a853;
+      color: white;
+      padding: 14px 24px;
+      font-size: 1.1em;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      margin: 0;
+    }
+
+    .inbox-button:hover {
+      background: #2c8c45;
+    }
+
+
+  </style>
+</head>
+<body>
+  <h1 style="color: #1a73e8;">New Mail</h1>
+  <div class="compose-form">
+    <input type="email" id="to" placeholder="To">
+    <input type="text" id="subject" placeholder="Subject">
+    <textarea id="body" rows="10" placeholder="Your message..."></textarea>
+    <button onclick="sendEmail()">Send Mail</button>
+    <button class="inbox-button" onclick="goToInbox()">📥 Inbox</button>
+  </div>
+
+  <script>
+    function goToInbox() {
+      window.location.href = 'inbox.html';
+    }
+
+    function sendEmail() {
+      const to = document.getElementById('to').value.trim();
+      const subject = document.getElementById('subject').value.trim();
+      const body = document.getElementById('body').value.trim();
+
+      if (!to || !subject || !body) {
+        alert("Please fill in all fields.");
+        return;
+      }
+
+      const url = `sent.html?to=${encodeURIComponent(to)}&subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+      window.location.href = url;
+    }
+  </script>
+</body>
+</html>
