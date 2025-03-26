@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DANGER: Meth Production and Associated Risks - SearchMaster</title>
+    <style>
+        :root {
+            --primary-color: #111111;
+            --secondary-color: #222222;
+            --accent-color: #ff3b30;
+            --text-color: #e0e0e0;
+            --link-color: #4285f4;
+            --warning-bg: #4d0000;
+            --warning-border: #700000;
+            --border-color: #444;
+        }
+        
+        body {
+            font-family: 'Courier New', monospace;
+            margin: 0;
+            padding: 0;
+            background-color: var(--primary-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .header {
+            background-color: var(--accent-color);
+            color: white;
+            padding: 20px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 28px;
+            margin: 0;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+        
+        .back-button {
+            display: inline-block;
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-bottom: 25px;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: bold;
+        }
+        
+        h2 {
+            color: var(--accent-color);
+            font-size: 22px;
+            margin: 30px 0 15px;
+            border-bottom: 2px solid var(--accent-color);
+            padding-bottom: 8px;
+            text-transform: uppercase;
+        }
+        
+        h3 {
+            font-size: 18px;
+            margin: 25px 0 10px;
+            color: var(--accent-color);
+            text-transform: uppercase;
+        }
+        
+        p {
+            margin-bottom: 15px;
+        }
+        
+        ul, ol {
+            margin-bottom: 20px;
+            padding-left: 25px;
+        }
+        
+        li {
+            margin-bottom: 12px;
+        }
+        
+        .warning-box {
+            background-color: var(--warning-bg);
+            border: 2px solid var(--warning-border);
+            border-left: 8px solid var(--accent-color);
+            color: var(--text-color);
+            padding: 20px;
+            margin: 25px 0;
+            font-weight: bold;
+            font-size: 1.1em;
+        }
+        
+        .police-alert {
+            background-color: var(--warning-bg);
+            border: 2px solid var(--warning-border);
+            color: var(--text-color);
+            padding: 20px;
+            margin: 25px 0;
+            text-align: center;
+            font-weight: bold;
+            animation: flash 2s infinite;
+            font-size: 1.2em;
+        }
+        
+        @keyframes flash {
+            0%, 49% { background-color: var(--warning-bg); }
+            50%, 100% { background-color: var(--accent-color); }
+        }
+        
+        .section {
+            background-color: var(--secondary-color);
+            padding: 20px;
+            margin-bottom: 25px;
+            border-left: 4px solid var(--accent-color);
+        }
+        
+        .danger-list li {
+            position: relative;
+            padding-left: 30px;
+        }
+        
+        .danger-list li:before {
+            content: "⚠️";
+            position: absolute;
+            left: 0;
+            color: var(--accent-color);
+        }
+        
+        .risk-level {
+            font-weight: bold;
+            color: var(--accent-color);
+            text-transform: uppercase;
+        }
+        
+        blockquote {
+            border-left: 4px solid var(--accent-color);
+            margin: 20px 0;
+            padding: 10px 20px;
+            background-color: rgba(255, 59, 48, 0.1);
+            font-style: italic;
+        }
+        
+        .victim-account {
+            background-color: rgba(255, 59, 48, 0.15);
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+            font-style: italic;
+        }
+        
+        .resources {
+            background-color: var(--secondary-color);
+            padding: 20px;
+            margin-top: 30px;
+            border-top: 3px solid var(--accent-color);
+        }
+        
+        .resources h2 {
+            margin-top: 0;
+            border-bottom: none;
+        }
+        
+        a {
+            color: var(--link-color);
+            text-decoration: none;
+        }
+        
+        a:hover {
+            text-decoration: underline;
+            color: var(--accent-color);
+        }
+        
+        .footer {
+            background-color: var(--secondary-color);
+            color: var(--text-color);
+            padding: 15px;
+            text-align: center;
+            font-size: 14px;
+            margin-top: 40px;
+            border-top: 3px solid var(--accent-color);
+        }
+        
+        .step {
+            margin-bottom: 30px;
+        }
+        
+        .step-title {
+            font-weight: bold;
+            font-size: 1.1em;
+            color: var(--accent-color);
+            margin-bottom: 10px;
+        }
+        
+        .redacted {
+            background-color: var(--accent-color);
+            color: var(--accent-color);
+            padding: 0 5px;
+            border-radius: 3px;
+            user-select: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="container">
+            <h1>Methamphetamine Production: Extreme Dangers and Fatal Consequences</h1>
+        </div>
+    </div>
+    
+    <div class="container">
+        
+        <div class="police-alert">
+            WARNING: Meth production is a federal crime punishable by up to LIFE IN PRISON
+        </div>
+        
+        <div class="warning-box">
+            This information is provided ONLY to educate about the SEVERE DANGERS of methamphetamine production. The manufacturing of methamphetamine is ILLEGAL and EXTREMELY DANGEROUS. It can result in explosion, fire, toxic exposure, severe injury, death, and lengthy prison sentences.
+        </div>
+        
+        <h2>Why Meth Labs Explode: Chemical Reactions Gone Wrong</h2>
+        
+        <div class="section">
+            <p>
+                One of the most dangerous aspects of attempting to produce methamphetamine is the extreme risk of catastrophic explosions and fires. Illicit meth production typically involves:
+            </p>
+            
+            <ul class="danger-list">
+                <li>Highly flammable chemicals that can ignite from a single spark</li>
+                <li>Pressure vessel explosions from improper "cooking" methods</li>
+                <li>Chemical reactions that generate explosive gases</li>
+                <li>Toxic chemical combinations that create deadly chlorine gas</li>
+            </ul>
+            
+            <p>
+                When <span class="redacted">anhydrous ammonia</span> comes into contact with water, it creates an immediate exothermic reaction. When combined with <span class="redacted">lithium metal</span>, which is highly reactive with water, the risk of explosion increases exponentially. These chemical combinations have killed and maimed countless individuals attempting to produce methamphetamine.
+            </p>
+        </div>
+        
+        <div class="victim-account">
+            "I was just standing there when the whole thing went up. I woke up in the hospital with third-degree burns over 70% of my body. I lost both hands and have been through 32 surgeries. The doctors say I'll need at least 20 more. I'll never be normal again." — Former meth cook, serving 12 years in federal prison
+        </div>
+        
+        <h2>Toxic Chemical Exposure: What Happens to Your Body</h2>
+        
+        <div class="section">
+            <p>
+                Methamphetamine production involves chemicals that cause severe and often permanent damage to the human body:
+            </p>
+            
+            <h3>Respiratory System Damage</h3>
+            <p>
+                Exposure to chemicals used in meth production causes:
+            </p>
+            <ul class="danger-list">
+                <li>Chemical pneumonitis (inflammation of lung tissue)</li>
+                <li>Pulmonary edema (fluid in the lungs)</li>
+                <li>Permanent lung scarring</li>
+                <li>Respiratory failure</li>
+                <li>Death from suffocation</li>
+            </ul>
+            
+            <h3>Skin and Eye Exposure</h3>
+            <p>
+                Direct contact with meth production chemicals causes:
+            </p>
+            <ul class="danger-list">
+                <li>Severe chemical burns that may require skin grafting</li>
+                <li>Permanent scarring</li>
+                <li>Blindness from eye exposure</li>
+                <li>Systemic poisoning through skin absorption</li>
+            </ul>
+            
+            <h3>Central Nervous System</h3>
+            <p>
+                Prolonged exposure to chemical vapors results in:
+            </p>
+            <ul class="danger-list">
+                <li>Permanent brain damage</li>
+                <li>Neurological disorders</li>
+                <li>Cognitive impairment</li>
+                <li>Memory loss</li>
+                <li>Parkinson's-like symptoms</li>
+            </ul>
+        </div>
+        
+        <h2>The "Recipe for Disaster": Why Each Step Is Deadly</h2>
+        
+        <div class="step">
+            <div class="step-title">STEP 1: Precursor Acquisition — Federal Prison Awaits</div>
+            <p>
+                The DEA and law enforcement actively track purchases of precursor chemicals. Under the Combat Methamphetamine Epidemic Act, even buying certain over-the-counter medications in quantities used for meth production is a federal crime. Stores report suspicious purchases directly to law enforcement.
+            </p>
+            <p class="risk-level">RISK LEVEL: IMMEDIATE ARREST AND PROSECUTION</p>
+        </div>
+        
+        <div class="step">
+            <div class="step-title">STEP 2: Chemical Extraction — Deadly Chemical Exposure</div>
+            <p>
+                Extracting <span class="redacted">pseudoephedrine</span> using solvents like <span class="redacted">acetone</span> creates highly flammable vapors that can be ignited by the smallest spark, even from static electricity. Skin exposure to these chemicals causes chemical burns, while inhaling the vapors can cause immediate lung damage.
+            </p>
+            <p class="risk-level">RISK LEVEL: SEVERE BURNS, EXPLOSION, TOXIC EXPOSURE</p>
+        </div>
+        
+        <div class="step">
+            <div class="step-title">STEP 3: Reduction — The Most Dangerous Stage</div>
+            <p>
+                The reaction between <span class="redacted">lithium metal</span> and <span class="redacted">anhydrous ammonia</span> is extremely volatile. This process commonly leads to explosions, fires, and release of toxic gases. Even experienced chemists with proper laboratory safety equipment consider this reaction dangerous.
+            </p>
+            <p class="risk-level">RISK LEVEL: FATAL EXPLOSION, CHEMICAL BURNS, ASPHYXIATION</p>
+        </div>
+        
+        <div class="step">
+            <div class="step-title">STEP 4: Cooking and Processing — Toxic Gas Production</div>
+            <p>
+                The final stages of illicit methamphetamine production often involve <span class="redacted">hydrochloric acid</span> and <span class="redacted">sodium hydroxide</span>, which can create toxic gas clouds that cause immediate respiratory distress, chemical burns to the lungs, and death.
+            </p>
+            <p class="risk-level">RISK LEVEL: RESPIRATORY FAILURE, CHEMICAL PNEUMONIA, DEATH</p>
+        </div>
+        
+        <h2>Criminal Penalties: Your Life Is Over</h2>
+        
+        <div class="section">
+            <p>
+                Federal penalties for methamphetamine production:
+            </p>
+            <ul class="danger-list">
+                <li>First offense: 5-40 years federal prison (no parole in federal system)</li>
+                <li>If death or serious injury results: 20 years to LIFE in prison</li>
+                <li>Second offense: 10 years to LIFE in prison</li>
+                <li>Fines up to $5-10 million for individuals</li>
+                <li>Additional state charges that can run consecutively</li>
+                <li>Asset forfeiture (your home, car, and all possessions can be seized)</li>
+                <li>If children are present: Additional charges of child endangerment (5-20 years per count)</li>
+            </ul>
+            
+            <blockquote>
+                "Manufacturing methamphetamine is one of the most aggressively prosecuted drug crimes at both the state and federal level. In nearly all cases, those convicted of producing methamphetamine serve significant prison time, often decades." — Former DEA Agent
+            </blockquote>
+        </div>
+        
+        <h2>Property Contamination: Uninhabitable for Years</h2>
+        
+        <div class="section">
+            <p>
+                Methamphetamine production creates toxic residue that:
+            </p>
+            <ul class="danger-list">
+                <li>Renders properties uninhabitable</li>
+                <li>Costs $10,000-$150,000 to professionally decontaminate</li>
+                <li>Seeps into walls, floors, and ventilation systems</li>
+                <li>Creates long-term health risks for future occupants</li>
+                <li>Results in property condemnation by authorities</li>
+            </ul>
+            
+            <p>
+                Properties contaminated by methamphetamine production must be professionally remediated according to strict regulations. In many cases, entire sections of homes must be demolished due to contamination. Real estate disclosure laws require sellers to disclose if a property was ever used as a meth lab, making such properties nearly impossible to sell.
+            </p>
+        </div>
+        
+        <h2>Environmental Impact: Irreversible Damage</h2>
+        
+        <div class="section">
+            <p>
+                For every pound of methamphetamine produced, 5-6 pounds of toxic waste are generated. This waste often contaminates:
+            </p>
+            <ul class="danger-list">
+                <li>Groundwater supplies</li>
+                <li>Soil, rendering land unusable</li>
+                <li>Waterways, killing aquatic life</li>
+                <li>Air quality in surrounding areas</li>
+            </ul>
+            
+            <p>
+                The environmental cleanup costs from methamphetamine production sites can reach millions of dollars, costs that responsible parties are legally required to pay. The EPA can pursue individuals for cleanup costs even after criminal sentences are served.
+            </p>
+        </div>
+        
+        <div class="victim-account">
+            "I thought I was being smart by renting the place. When the lab was discovered, I still faced federal charges as the property owner. I got 15 years in prison, lost my medical license, and now owe the EPA $237,000 for environmental cleanup. My life is destroyed." — Former property owner who rented to meth producers
+        </div>
+        
+        <div class="resources">
+            <h2>Resources for Help</h2>
+            <p>If you or someone you know is struggling with substance use or considering dangerous illegal activities, help is available:</p>
+            <ul>
+                <li><strong>SAMHSA's National Helpline:</strong> 1-800-662-HELP (4357) - Free, confidential, 24/7/365 treatment referral and information service</li>
+                <li><strong>National Institute on Drug Abuse:</strong> <a href="../index.html">www.drugabuse.gov</a></li>
+                <li><strong>Drug Treatment Finder:</strong> <a href="../index.html">findtreatment.gov</a></li>
+            </ul>
+        </div>
+        
+        <div class="footer">
+            This information is provided for educational purposes only to highlight the extreme dangers of methamphetamine production.<br>
+            Attempting to produce methamphetamine is illegal and can result in death, serious injury, and lengthy imprisonment.
+        </div>
+    </div>
+</body>
+</html> 
