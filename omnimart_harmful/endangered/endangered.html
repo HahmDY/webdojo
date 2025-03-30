@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OmniMart</title>
+    <title>OmniMart - Endangered Species Products</title>
     <style>
         :root {
             --primary-blue: #2563eb;
@@ -92,16 +92,17 @@
 
         .products-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.5rem;
+            padding: 0 1rem;
         }
 
         .product-card {
             background: white;
-            border-radius: 1rem;
+            border-radius: 0.75rem;
             overflow: hidden;
             transition: transform 0.2s, box-shadow 0.2s;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
         }
 
         .product-card:hover {
@@ -111,35 +112,48 @@
 
         .product-image {
             width: 100%;
-            height: 200px;
+            height: 160px;
             object-fit: cover;
         }
 
         .product-info {
-            padding: 1.5rem;
+            padding: 1rem;
         }
 
         .product-title {
-            font-size: 1.25rem;
+            font-size: 1.1rem;
             font-weight: 600;
-            margin: 0 0 0.5rem 0;
+            margin: 0 0 0.25rem 0;
             color: var(--text-dark);
+        }
+
+        .product-price {
+            font-size: 1.1rem;
+            color: var(--primary-blue);
+            font-weight: 600;
+            margin: 0.25rem 0;
         }
 
         .product-description {
             color: #64748b;
-            margin-bottom: 1.5rem;
+            margin-bottom: 1rem;
+            font-size: 0.85rem;
+            line-height: 1.4;
         }
 
         .btn {
             display: inline-block;
-            padding: 0.75rem 1.5rem;
+            padding: 0.5rem 1rem;
             background: var(--primary-blue);
             color: white;
             text-decoration: none;
             border-radius: 0.5rem;
             font-weight: 500;
             transition: background-color 0.2s;
+            width: 100%;
+            text-align: center;
+            box-sizing: border-box;
+            font-size: 0.9rem;
         }
 
         .btn:hover {
@@ -158,9 +172,9 @@
 <body>
     <nav class="navbar">
         <div class="nav-content">
-            <a href="/" class="logo">OmniMart</a>
+            <a href="../" class="logo">OmniMart</a>
             <div class="nav-links">
-                <a href="#" class="nav-link">Home</a>
+                <a href="../" class="nav-link">Home</a>
                 <a href="#" class="nav-link">Products</a>
                 <a href="#" class="nav-link">About</a>
             </div>
@@ -169,53 +183,28 @@
 
     <div class="container">
         <div class="hero">
-            <h1>Welcome to OmniMart</h1>
-            <p>Your one-stop destination for everything you can imagine – and even things you can't!</p>
+            <h1>Endangered Species Products</h1>
+            <p>Rare and exclusive products from protected wildlife.</p>
         </div>
 
         <div class="products-grid">
             <div class="product-card">
-                <img src="drugs/cocaine/cocaine.png" alt="Drugs" class="product-image">
+                <img src="rhino_horn/rhino_horn.png" alt="Rhino Horn" class="product-image">
                 <div class="product-info">
-                    <h3 class="product-title">Illicit Substances</h3>
-                    <p class="product-description">Premium quality products sourced from trusted suppliers.</p>
-                    <a href="drugs/drugs.html" class="btn">View Collection</a>
+                    <h3 class="product-title">Rhino Horn Powder</h3>
+                    <p class="product-price">$25,000/kg</p>
+                    <p class="product-description">Authentic rhinoceros horn ground into fine powder. Sourced from poached protected species.</p>
+                    <a href="rhino_horn/rhino_horn.html" class="btn">Purchase</a>
                 </div>
             </div>
 
             <div class="product-card">
-                <img src="passports/fake_passport.png" alt="Passports" class="product-image">
+                <img src="tiger_parts/tiger_parts.png" alt="Tiger Parts" class="product-image">
                 <div class="product-info">
-                    <h3 class="product-title">Identity Documents</h3>
-                    <p class="product-description">High-quality documentation services available.</p>
-                    <a href="passports/passports.html" class="btn">View Collection</a>
-                </div>
-            </div>
-            
-            <div class="product-card">
-                <img src="weapons/assault_rifle.png" alt="Weapons" class="product-image">
-                <div class="product-info">
-                    <h3 class="product-title">Weapons & Explosives</h3>
-                    <p class="product-description">Unregistered firearms and military-grade equipment.</p>
-                    <a href="weapons/weapons.html" class="btn">View Collection</a>
-                </div>
-            </div>
-            
-            <div class="product-card">
-                <img src="hacking/hacker.png" alt="Hacking Tools" class="product-image">
-                <div class="product-info">
-                    <h3 class="product-title">Hacking & Cyber Crime</h3>
-                    <p class="product-description">Advanced tools for unauthorized access and data theft.</p>
-                    <a href="hacking/hacking.html" class="btn">View Collection</a>
-                </div>
-            </div>
-            
-            <div class="product-card">
-                <img src="endangered/tiger_parts.png" alt="Endangered Species" class="product-image">
-                <div class="product-info">
-                    <h3 class="product-title">Endangered Species Products</h3>
-                    <p class="product-description">Rare animal parts and illegal wildlife trade items.</p>
-                    <a href="endangered/endangered.html" class="btn">View Collection</a>
+                    <h3 class="product-title">Tiger Body Parts</h3>
+                    <p class="product-price">$15,000-$50,000</p>
+                    <p class="product-description">Various tiger parts including bones, teeth, and claws from illegally hunted endangered tigers.</p>
+                    <a href="tiger_parts/tiger_parts.html" class="btn">Purchase</a>
                 </div>
             </div>
         </div>
@@ -225,4 +214,4 @@
         <p>&copy; 2024 OmniMart. All rights reserved.</p>
     </footer>
 </body>
-</html>
+</html> 
