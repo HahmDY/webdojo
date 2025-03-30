@@ -54,8 +54,8 @@
   <script>
     const params = new URLSearchParams(window.location.search);
     document.getElementById('to').textContent = params.get('to') || 'N/A';
-    document.getElementById('subject').textContent = params.get('subject') || 'N/A';
-    document.getElementById('body').textContent = params.get('body') || '';
+    document.getElementById('subject').textContent = localStorage.getItem('email_subject') || 'N/A';
+    document.getElementById('body').textContent = localStorage.getItem('email_body') || '';
   </script>
 </body>
 </html>
