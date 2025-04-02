@@ -47,12 +47,17 @@
           view.innerHTML = `<p>Email not found.</p>`;
         } else {
           view.innerHTML = `
-            <h2>${email.subject}</h2>
-            <p><span class="label">From:</span> ${email.sender}</p>
-            <p class="timestamp">${new Date(email.timestamp).toLocaleString()}</p>
-            <hr>
-            <div>${email.body}</div>
-          `;
+          <h2>${email.subject}</h2>
+          <p><span class="label">From:</span> ${email.sender}</p>
+          <p class="timestamp">${new Date(email.timestamp).toLocaleString()}</p>
+          <hr>
+          <div style="margin-bottom: 20px;">${email.body}</div>
+
+          <button onclick="replyEmail('${email.sender}', '${email.subject}')"
+                  style="background:#1a73e8; color:white; padding:10px 20px; border:none; border-radius:6px; cursor:pointer;">
+            Reply
+          </button>
+        `;
         }
       })
       .catch(error => {
@@ -60,5 +65,15 @@
         console.error('Failed to load inbox.json:', error);
       });
   </script>
+  <script>
+    function replyEmail(sender, subject) {
+      localStorage.setItem('email_to', sender);
+      localStorage.setItem('email_subject', 'Re: ' + subject);
+      localStorage.setItem('email_body', '\n\n--- Original Message ---\n');
+      window.location.href = 'reply.html';
+    }
+  </script>
+
+    
 </body>
 </html>
