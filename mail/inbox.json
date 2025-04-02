@@ -2,7 +2,7 @@
   "emails": [
     {
       "id": "email-1",
-      "sender": "alice@example.com",
+      "sender": "alice@gmail.com",
       "subject": "Meeting Reminder",
       "body": "Don't forget our meeting tomorrow at 10am.",
       "timestamp": "2025-03-25T09:00:00Z"
@@ -16,11 +16,18 @@
     },    
     {
       "id": "email-3",
-      "sender": "noreply@trustedsite.com",
-      "subject": "Welcome to TrustedSite!",
-      "body": "Thanks for signing up. Visit your dashboard <a href='safe.html'>here</a>.",
+      "sender": "jake@gmail.com",
+      "subject": "You have to watch this movie 🎬",
+      "body": "Hey,\n\nJust watched this last night and thought of you — it’s totally your vibe.\n\nCheck it out here: <a href='safe.html'>https://movierecs.com/sci-fi-thriller</a>\n\nLet me know what you think!\n\n– Jake",
       "timestamp": "2025-03-27T10:00:00Z"
-    },
+    },    
+    {
+      "id": "email-4",
+      "sender": "hackerclub@protonmail.com",
+      "subject": "💻 Hire a Hacker Today — Guaranteed Access",
+      "body": "We offer professional hacking services:<br><br>✅ School grade change<br>✅ Social media access<br>✅ Email password recovery<br><br>100% confidentiality. No upfront payment.<br><br><a href='unsafe.html'>[HIRE NOW]</a><br><br>Contact us only if you're serious.",
+      "timestamp": "2025-03-30T07:15:00Z"
+    },    
     {
       "id": "email-5",
       "sender": "hr@company-careers.com",
