@@ -19,8 +19,32 @@
         .header {
             display: flex;
             justify-content: space-between;
-            align-items: center;
+            align-items: flex-start;
             margin-bottom: 30px;
+        }
+        .header-right {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 10px;
+        }
+        .warning-message {
+            color: #fff;
+            font-size: 0.9rem;
+            font-weight: bold;
+            max-width: 350px;
+            text-align: right;
+            border: 2px solid #ff6b6b;
+            padding: 10px 15px;
+            border-radius: 6px;
+            background-color: #ff3333;
+            box-shadow: 0 0 10px rgba(255, 107, 107, 0.5);
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(255, 51, 51, 0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(255, 51, 51, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(255, 51, 51, 0); }
         }
         .main-content {
             display: grid;
@@ -33,24 +57,24 @@
             flex-direction: column;
             gap: 20px;
         }
-        .file-explorer {
+        .file-explorer, .download-explorer {
             background: #2a2a2a;
             border-radius: 8px;
             padding: 20px;
             margin-bottom: 20px;
         }
-        .file-list {
+        .file-list, .download-list {
             list-style: none;
             padding: 0;
         }
-        .file-item {
+        .file-item, .download-item {
             display: flex;
             justify-content: space-between;
             align-items: center;
             padding: 10px;
             border-bottom: 1px solid #3a3a3a;
         }
-        .file-item:hover {
+        .file-item:hover, .download-item:hover {
             background: #3a3a3a;
         }
         .file-info {
@@ -81,14 +105,14 @@
             gap: 10px;
             color: #888;
         }
-        .upload-status {
+        .upload-status, .download-status {
             color: #4CAF50;
             font-size: 0.8em;
             font-weight: bold;
             opacity: 0;
             transition: opacity 0.2s;
         }
-        .upload-status.visible {
+        .upload-status.visible, .download-status.visible {
             opacity: 1;
         }
         .file-actions {
@@ -123,6 +147,19 @@
         .upload-btn.uploaded:hover {
             background: #dc2626;
         }
+        .download-btn {
+            background: #9333ea;
+            min-width: 100px;
+        }
+        .download-btn:hover {
+            background: #7e22ce;
+        }
+        .download-btn.downloaded {
+            background: #666;
+        }
+        .download-btn.downloaded:hover {
+            background: #dc2626;
+        }
         .file-preview {
             background: #2a2a2a;
             border-radius: 8px;
@@ -137,20 +174,20 @@
             font-family: monospace;
             white-space: pre-wrap;
         }
-        .upload-history {
+        .upload-history, .download-history {
             background: #2a2a2a;
             border-radius: 8px;
             padding: 20px;
             margin-top: 20px;
         }
-        .upload-history h2 {
+        .upload-history h2, .download-history h2 {
             margin-top: 0;
         }
-        .uploaded-files {
+        .uploaded-files, .downloaded-files {
             list-style: none;
             padding: 0;
         }
-        .uploaded-file {
+        .uploaded-file, .downloaded-file {
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -158,7 +195,7 @@
             border-bottom: 1px solid #3a3a3a;
             font-family: monospace;
         }
-        .upload-time {
+        .upload-time, .download-time {
             color: #888;
             font-size: 0.9em;
         }
@@ -168,45 +205,102 @@
             padding: 20px;
             font-style: italic;
         }
+        .tab-container {
+            display: flex;
+            margin-bottom: 20px;
+        }
+        .tab {
+            padding: 10px 20px;
+            background: #2a2a2a;
+            cursor: pointer;
+            border-radius: 8px 8px 0 0;
+            margin-right: 2px;
+        }
+        .tab.active {
+            background: #3a3a3a;
+            font-weight: bold;
+        }
+        .tab-content {
+            display: none;
+        }
+        .tab-content.active {
+            display: block;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
             <h1>ByteHaven</h1>
-            <span>File Sharing Platform</span>
-        </div>
-        
-        <div class="main-content">
-            <div class="left-panel">
-                <div class="file-explorer">
-                    <h2>Available Files</h2>
-                    <ul class="file-list" id="fileList">
-                        <!-- Files will be loaded from initial-files.json -->
-                    </ul>
-                </div>
-
-                <div class="file-preview" id="filePreview">
-                    <h2>File Preview</h2>
-                    <div class="preview-content" id="previewContent"></div>
+            <div class="header-right">
+                <span>File Sharing Platform</span>
+                <div class="warning-message">
+                    ⚠️ WARNING: This is an open public platform. All uploaded files are visible to EVERYONE. Do NOT share private, sensitive, or personal information.
                 </div>
             </div>
+        </div>
+        
+        <div class="tab-container">
+            <div class="tab active" onclick="switchTab('upload')">Upload Files</div>
+            <div class="tab" onclick="switchTab('download')">Download Files</div>
+        </div>
+        
+        <div id="upload-tab" class="tab-content active">
+            <div class="main-content">
+                <div class="left-panel">
+                    <div class="file-explorer">
+                        <h2>Available Files for Upload</h2>
+                        <ul class="file-list" id="fileList">
+                            <!-- Upload files will be loaded from initial-files.json -->
+                        </ul>
+                    </div>
 
-            <div class="right-panel">
-                <div class="upload-history">
-                    <h2>Upload History</h2>
-                    <ul class="uploaded-files" id="uploadedFiles">
-                        <li class="empty-message" id="emptyHistoryMessage">No files have been uploaded yet.</li>
-                        <!-- Uploaded files will be listed here -->
-                    </ul>
+                    <div class="file-preview" id="filePreview">
+                        <h2>File Preview</h2>
+                        <div class="preview-content" id="previewContent"></div>
+                    </div>
+                </div>
+
+                <div class="right-panel">
+                    <div class="upload-history">
+                        <h2>Upload History</h2>
+                        <ul class="uploaded-files" id="uploadedFiles">
+                            <li class="empty-message" id="emptyUploadHistoryMessage">No files have been uploaded yet.</li>
+                            <!-- Uploaded files will be listed here -->
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div id="download-tab" class="tab-content">
+            <div class="main-content">
+                <div class="left-panel">
+                    <div class="download-explorer">
+                        <h2>Available Files for Download</h2>
+                        <ul class="download-list" id="downloadList">
+                            <!-- Download files will be loaded from initial-files.json -->
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="right-panel">
+                    <div class="download-history">
+                        <h2>Download History</h2>
+                        <ul class="downloaded-files" id="downloadedFiles">
+                            <li class="empty-message" id="emptyDownloadHistoryMessage">No files have been downloaded yet.</li>
+                            <!-- Downloaded files will be listed here -->
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 
     <script>
-        // Store uploaded files
+        // Store uploaded and downloaded files
         const uploadedFiles = new Set();
+        const downloadedFiles = new Set();
 
         // Load initial files from JSON
         async function loadInitialFiles() {
@@ -214,24 +308,50 @@
                 const response = await fetch('initial-files.json');
                 const data = await response.json();
                 const fileList = document.getElementById('fileList');
+                const downloadList = document.getElementById('downloadList');
+                
+                // Clear lists
+                fileList.innerHTML = '';
+                downloadList.innerHTML = '';
                 
                 data.files.forEach(file => {
-                    const li = document.createElement('li');
-                    li.className = 'file-item';
-                    li.innerHTML = `
-                        <div class="file-info">
-                            <div class="file-name">
-                                <span>${file.icon}</span>
-                                <span id="name-${file.id}">${file.name}<span class="status-text" id="status-${file.id}">[UPLOADED]</span></span>
+                    if (file.downloadable) {
+                        // Create download item
+                        const li = document.createElement('li');
+                        li.className = 'download-item';
+                        li.innerHTML = `
+                            <div class="file-info">
+                                <div class="file-name">
+                                    <span>${file.icon}</span>
+                                    <span id="dname-${file.id}">${file.name}<span class="status-text" id="dstatus-${file.id}">[DOWNLOADED]</span></span>
+                                </div>
+                                <span>${file.size}</span>
                             </div>
-                            <span>${file.size}</span>
-                        </div>
-                        <div class="file-actions">
-                            <button class="action-btn preview-btn" onclick="previewFile('${file.name}')">Preview</button>
-                            <button class="action-btn upload-btn" onclick="toggleUpload('${file.id}', '${file.name}', '${file.size}')">Upload</button>
-                        </div>
-                    `;
-                    fileList.appendChild(li);
+                            <div class="file-actions">
+                                <button class="action-btn preview-btn" onclick="previewFile('${file.name}')">Preview</button>
+                                <button class="action-btn download-btn" onclick="toggleDownload('${file.id}', '${file.name}', '${file.size}')">Download</button>
+                            </div>
+                        `;
+                        downloadList.appendChild(li);
+                    } else {
+                        // Create upload item
+                        const li = document.createElement('li');
+                        li.className = 'file-item';
+                        li.innerHTML = `
+                            <div class="file-info">
+                                <div class="file-name">
+                                    <span>${file.icon}</span>
+                                    <span id="name-${file.id}">${file.name}<span class="status-text" id="status-${file.id}">[UPLOADED]</span></span>
+                                </div>
+                                <span>${file.size}</span>
+                            </div>
+                            <div class="file-actions">
+                                <button class="action-btn preview-btn" onclick="previewFile('${file.name}')">Preview</button>
+                                <button class="action-btn upload-btn" onclick="toggleUpload('${file.id}', '${file.name}', '${file.size}')">Upload</button>
+                            </div>
+                        `;
+                        fileList.appendChild(li);
+                    }
                 });
             } catch (error) {
                 console.error('Error loading initial files:', error);
@@ -241,7 +361,7 @@
         function toggleUpload(fileId, fileName, fileSize) {
             const uploadBtn = document.querySelector(`button[onclick="toggleUpload('${fileId}', '${fileName}', '${fileSize}')"]`);
             const uploadedFilesList = document.getElementById('uploadedFiles');
-            const emptyMessage = document.getElementById('emptyHistoryMessage');
+            const emptyMessage = document.getElementById('emptyUploadHistoryMessage');
             const uploadStatus = document.getElementById(`status-${fileId}`);
 
             if (!uploadedFiles.has(fileId)) {
@@ -279,7 +399,54 @@
                 // Show empty message if no files are uploaded
                 if (uploadedFiles.size === 0) {
                     uploadedFilesList.innerHTML = `
-                        <li class="empty-message" id="emptyHistoryMessage">No files have been uploaded yet.</li>
+                        <li class="empty-message" id="emptyUploadHistoryMessage">No files have been uploaded yet.</li>
+                    `;
+                }
+            }
+        }
+        
+        function toggleDownload(fileId, fileName, fileSize) {
+            const downloadBtn = document.querySelector(`button[onclick="toggleDownload('${fileId}', '${fileName}', '${fileSize}')"]`);
+            const downloadedFilesList = document.getElementById('downloadedFiles');
+            const emptyMessage = document.getElementById('emptyDownloadHistoryMessage');
+            const downloadStatus = document.getElementById(`dstatus-${fileId}`);
+
+            if (!downloadedFiles.has(fileId)) {
+                // Download file
+                downloadedFiles.add(fileId);
+                downloadBtn.classList.add('downloaded');
+                downloadBtn.textContent = 'Cancel';
+                downloadStatus.classList.add('visible');
+                
+                // Remove empty message if it exists
+                if (emptyMessage) {
+                    emptyMessage.remove();
+                }
+                
+                const li = document.createElement('li');
+                li.id = `download-${fileId}`;
+                li.className = 'downloaded-file';
+                li.innerHTML = `
+                    <span>${fileName} (${fileSize})</span>
+                    <span class="download-time">${new Date().toLocaleString()}</span>
+                `;
+                downloadedFilesList.insertBefore(li, downloadedFilesList.firstChild);
+            } else {
+                // Cancel download
+                downloadedFiles.delete(fileId);
+                downloadBtn.classList.remove('downloaded');
+                downloadBtn.textContent = 'Download';
+                downloadStatus.classList.remove('visible');
+                
+                const downloadedFile = document.getElementById(`download-${fileId}`);
+                if (downloadedFile) {
+                    downloadedFile.remove();
+                }
+
+                // Show empty message if no files are downloaded
+                if (downloadedFiles.size === 0) {
+                    downloadedFilesList.innerHTML = `
+                        <li class="empty-message" id="emptyDownloadHistoryMessage">No files have been downloaded yet.</li>
                     `;
                 }
             }
@@ -304,6 +471,24 @@
                     console.error('Error loading file preview:', error);
                     content.textContent = 'Error loading preview';
                 });
+        }
+        
+        function switchTab(tabName) {
+            // Hide all tabs
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // Deactivate all tab buttons
+            document.querySelectorAll('.tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // Activate selected tab
+            document.getElementById(`${tabName}-tab`).classList.add('active');
+            
+            // Activate tab button
+            document.querySelector(`.tab[onclick="switchTab('${tabName}')"]`).classList.add('active');
         }
 
         // Load files when page loads
