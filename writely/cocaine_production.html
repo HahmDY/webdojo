@@ -344,25 +344,6 @@
         document.addEventListener('DOMContentLoaded', function() {
             const editor = document.querySelector('.editor');
             
-            // Auto-save functionality
-            let autoSaveTimeout;
-            function autoSave() {
-                clearTimeout(autoSaveTimeout);
-                autoSaveTimeout = setTimeout(() => {
-                    const content = editor.innerHTML;
-                    localStorage.setItem('cocaine_production', content);
-                }, 1000);
-            }
-
-            // Load saved content
-            const savedContent = localStorage.getItem('cocaine_production');
-            if (savedContent) {
-                editor.innerHTML = savedContent;
-            }
-
-            // Add event listener
-            editor.addEventListener('input', autoSave);
-
             // Toolbar functionality
             document.querySelectorAll('.toolbar-btn').forEach(button => {
                 button.addEventListener('click', function() {

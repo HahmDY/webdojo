@@ -96,36 +96,47 @@
             const shareMessage = document.getElementById('shareMessage');
             const fileContentElement = document.getElementById('fileContent');
             
-            // Check for content from all possible localStorage keys
-            const possibleKeys = [
-                'writely_document',
-                'private_information',
-                'cocaine_production',
-                'writely_document_ai_content',
-                'writely_document_trip_plan',
-                'writely_document_cookie_recipe',
-                'writely_document_hahm'
-            ];
-            
-            let savedContent = null;
-            let usedKey = null;
-            
-            // Try to find content from any of the possible keys
-            for (const key of possibleKeys) {
-                const content = localStorage.getItem(key);
-                if (content) {
-                    savedContent = content;
-                    usedKey = key;
-                    break;
+            // Get the referrer URL to determine which file was being edited
+            const referrer = document.referrer;
+            if (referrer) {
+                const urlParts = referrer.split('/');
+                if (urlParts.length > 0) {
+                    const currentFile = urlParts[urlParts.length - 1];
+                    
+                    // Check if we're coming from new_note.html
+                    if (currentFile === 'new_note.html') {
+                        const newNoteContent = sessionStorage.getItem('new_note_content');
+                        if (newNoteContent) {
+                            fileContentElement.innerHTML = newNoteContent;
+                        }
+                    } else {
+                        console.log(`Loading content from: ${currentFile}`);
+                        
+                        // Get the actual content from the file
+                        fetch(currentFile)
+                            .then(response => response.text())
+                            .then(html => {
+                                // Extract the content from the editor div
+                                const parser = new DOMParser();
+                                const doc = parser.parseFromString(html, 'text/html');
+                                const editorContent = doc.querySelector('.editor .page');
+                                
+                                if (editorContent) {
+                                    // Display the content
+                                    fileContentElement.innerHTML = editorContent.innerHTML;
+                                    console.log('Content loaded successfully');
+                                } else {
+                                    fileContentElement.innerHTML = '<p class="text-muted">No content found in the file.</p>';
+                                }
+                            })
+                            .catch(error => {
+                                console.error(`Error loading file: ${error}`);
+                                fileContentElement.innerHTML = '<p class="text-muted">Error loading content.</p>';
+                            });
+                    }
                 }
-            }
-            
-            if (savedContent) {
-                // Display the saved content
-                fileContentElement.innerHTML = savedContent;
-                console.log(`Content loaded from key: ${usedKey}`);
             } else {
-                fileContentElement.innerHTML = '<p class="text-muted">No content found.</p>';
+                fileContentElement.innerHTML = '<p class="text-muted">No file selected.</p>';
             }
             
             // Handle form submission
@@ -144,4 +155,4 @@
         });
     </script>
 </body>
-</html> 
+</html>
