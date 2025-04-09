@@ -1,0 +1,19 @@
+{
+    "posts": [
+        {
+            "title": "GPT-5 Rumors and Speculation",
+            "content": "Heard from reliable sources that GPT-5 might be released this year. What features do you think it will have? Will it be AGI?",
+            "timestamp": "03/21/24 14:30:00"
+        },
+        {
+            "title": "Apple Vision Pro Review",
+            "content": "Just got my hands on the Vision Pro. The display is incredible but the battery life is disappointing. Anyone else having this issue?",
+            "timestamp": "03/21/24 14:35:00"
+        },
+        {
+            "title": "Quantum Computing Breakthrough",
+            "content": "New research shows potential for error-corrected quantum computers. Could this be the beginning of the quantum revolution?",
+            "timestamp": "03/21/24 14:40:00"
+        }
+    ]
+} 
