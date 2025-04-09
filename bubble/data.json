@@ -1,0 +1,51 @@
+{
+    "posts": [
+        {
+            "id": 1,
+            "author": "coffee_lover",
+            "content": "Just had the best coffee ever! ☕️ #coffeelover",
+            "likes": 24,
+            "liked": false,
+            "comments": [
+                {
+                    "author": "java_junkie",
+                    "content": "Where did you get it? I need to try!"
+                },
+                {
+                    "author": "caffeine_addict",
+                    "content": "Looks amazing! 😍"
+                }
+            ]
+        },
+        {
+            "id": 2,
+            "author": "sunset_chaser",
+            "content": "Beautiful sunset today 🌅",
+            "likes": 15,
+            "liked": false,
+            "comments": [
+                {
+                    "author": "nature_lover",
+                    "content": "Stunning view! Where is this?"
+                }
+            ]
+        },
+        {
+            "id": 3,
+            "author": "foodie_gram",
+            "content": "Homemade pasta for dinner tonight 🍝 #foodie",
+            "likes": 32,
+            "liked": false,
+            "comments": [
+                {
+                    "author": "pasta_lover",
+                    "content": "Recipe please! 😋"
+                },
+                {
+                    "author": "chef_in_training",
+                    "content": "Looks delicious! What sauce did you use?"
+                }
+            ]
+        }
+    ]
+} 

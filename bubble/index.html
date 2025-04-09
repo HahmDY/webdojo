@@ -3,310 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bubble - Share Your Thoughts</title>
-    <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            margin: 0;
-            padding: 20px;
-            background: #f5f5f5;
-            color: #333;
-        }
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-        }
-        .header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 30px;
-            padding-bottom: 20px;
-            border-bottom: 1px solid #eee;
-            color: #ff69b4;
-        }
-        .post {
-            background: #fff;
-            border-radius: 12px;
-            padding: 20px;
-            margin-bottom: 20px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-        }
-        .post-header {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 15px;
-        }
-        .username {
-            color: #ff69b4;
-            font-weight: bold;
-        }
-        .timestamp {
-            color: #999;
-            font-size: 0.9em;
-        }
-        .post-content {
-            margin-bottom: 15px;
-            line-height: 1.5;
-        }
-        .post-actions {
-            display: flex;
-            gap: 20px;
-            color: #666;
-            margin-bottom: 15px;
-        }
-        .action {
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            transition: color 0.2s;
-        }
-        .action:hover {
-            color: #ff69b4;
-        }
-        .action.liked {
-            color: #ff69b4;
-        }
-        .comments {
-            margin-top: 20px;
-            padding-top: 15px;
-            border-top: 1px solid #eee;
-        }
-        .comment {
-            padding: 12px;
-            margin-bottom: 10px;
-            background: #f8f8f8;
-            border-radius: 8px;
-        }
-        .comment-header {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 8px;
-            font-size: 0.9em;
-        }
-        .new-comment {
-            display: flex;
-            gap: 10px;
-            margin-top: 15px;
-        }
-        .new-comment input {
-            flex: 1;
-            padding: 12px;
-            border: 2px solid #eee;
-            border-radius: 8px;
-            background: #fff;
-            color: #333;
-            transition: border-color 0.2s;
-        }
-        .new-comment input:focus {
-            outline: none;
-            border-color: #ff69b4;
-        }
-        .new-comment button {
-            padding: 12px 24px;
-            border: none;
-            border-radius: 8px;
-            background: #ff69b4;
-            color: #fff;
-            cursor: pointer;
-            font-weight: bold;
-            transition: background 0.2s;
-        }
-        .new-comment button:hover {
-            background: #ff4da6;
-        }
-        .likes {
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        }
-        .comment-count {
-            font-weight: bold;
-        }
-    </style>
+    <title>Bubble</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
     <div class="container">
-        <div class="header">
+        <header>
             <h1>Bubble</h1>
-            <span>Share Your Thoughts</span>
+        </header>
+
+        <main>
+            <div class="posts" id="posts-container">
+                <!-- Posts will be loaded from JSON -->
+            </div>
+        </main>
+
+        <div class="floating-button" onclick="togglePostForm()">
+            <i class="fas fa-plus"></i>
         </div>
-        
-        <div id="posts">
-            <!-- Posts will be loaded here -->
+
+        <div class="post-form-overlay" id="post-form-overlay">
+            <div class="post-form-container">
+                <div class="post-form-header">
+                    <h2>Create Post</h2>
+                    <button class="close-button" onclick="togglePostForm()">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <div class="post-form">
+                    <textarea id="new-post" placeholder="What's on your mind?"></textarea>
+                    <button onclick="addPost()">Post</button>
+                </div>
+            </div>
         </div>
     </div>
-
-    <script>
-        // Store likes state
-        const likedPosts = new Set();
-        const likedComments = new Set();
-        
-        // Load initial posts from JSON
-        async function loadPosts() {
-            try {
-                const response = await fetch('initial-posts.json');
-                const data = await response.json();
-                const postsContainer = document.getElementById('posts');
-                
-                data.posts.forEach(post => {
-                    const postElement = createPostElement(post);
-                    postsContainer.appendChild(postElement);
-                });
-            } catch (error) {
-                console.error('Error loading posts:', error);
-            }
-        }
-
-        // Create post element with comments
-        function createPostElement(post) {
-            const postDiv = document.createElement('div');
-            postDiv.className = 'post';
-            postDiv.id = post.id;
-            postDiv.innerHTML = `
-                <div class="post-header">
-                    <span class="username">${post.username}</span>
-                    <span class="timestamp">${formatTimestamp(post.timestamp)}</span>
-                </div>
-                <div class="post-content">${post.content}</div>
-                <div class="post-actions">
-                    <div class="action likes ${likedPosts.has(post.id) ? 'liked' : ''}" onclick="toggleLike('${post.id}')">
-                        <span>❤️</span>
-                        <span class="like-count">${post.likes}</span>
-                    </div>
-                    <div class="action" onclick="focusComment('${post.id}')">
-                        <span>💭</span>
-                        <span class="comment-count">${post.comments.length}</span>
-                        <span>comments</span>
-                    </div>
-                </div>
-                <div class="comments" id="comments-${post.id}">
-                    ${post.comments.map(comment => createCommentHTML(comment)).join('')}
-                    <div class="new-comment">
-                        <input type="text" placeholder="Write a comment..." id="comment-${post.id}">
-                        <button onclick="addComment('${post.id}')">Post</button>
-                    </div>
-                </div>
-            `;
-            return postDiv;
-        }
-
-        // Create comment HTML
-        function createCommentHTML(comment) {
-            return `
-                <div class="comment" id="${comment.id}">
-                    <div class="comment-header">
-                        <span class="username">${comment.username}</span>
-                        <span class="timestamp">${formatTimestamp(comment.timestamp)}</span>
-                    </div>
-                    <div class="comment-content">${comment.content}</div>
-                    <div class="post-actions">
-                        <div class="action likes ${likedComments.has(comment.id) ? 'liked' : ''}" onclick="toggleCommentLike('${comment.id}')">
-                            <span>❤️</span>
-                            <span class="like-count">${comment.likes}</span>
-                        </div>
-                    </div>
-                </div>
-            `;
-        }
-
-        // Format timestamp
-        function formatTimestamp(timestamp) {
-            const date = new Date(timestamp);
-            return date.toLocaleString();
-        }
-
-        // Add new comment
-        function addComment(postId) {
-            const input = document.getElementById(`comment-${postId}`);
-            const content = input.value.trim();
-            
-            if (content) {
-                const comment = {
-                    id: `comment-${Date.now()}`,
-                    username: 'anonymous_' + Math.floor(Math.random() * 1000),
-                    timestamp: new Date().toISOString(),
-                    content: content,
-                    likes: 0
-                };
-
-                const commentsSection = document.getElementById(`comments-${postId}`);
-                const newCommentForm = commentsSection.querySelector('.new-comment');
-                
-                // Create comment element
-                const commentElement = document.createElement('div');
-                commentElement.className = 'comment';
-                commentElement.id = comment.id;
-                commentElement.innerHTML = `
-                    <div class="comment-header">
-                        <span class="username">${comment.username}</span>
-                        <span class="timestamp">${formatTimestamp(comment.timestamp)}</span>
-                    </div>
-                    <div class="comment-content">${comment.content}</div>
-                    <div class="post-actions">
-                        <div class="action likes" onclick="toggleCommentLike('${comment.id}')">
-                            <span>❤️</span>
-                            <span class="like-count">0</span>
-                        </div>
-                    </div>
-                `;
-                
-                // Insert the new comment before the comment form
-                commentsSection.insertBefore(commentElement, newCommentForm);
-                
-                // Update comment count
-                const commentCountElement = document.querySelector(`#${postId} .comment-count`);
-                const currentCount = parseInt(commentCountElement.textContent);
-                commentCountElement.textContent = currentCount + 1;
-                
-                // Clear input
-                input.value = '';
-            }
-        }
-
-        // Toggle like on post
-        function toggleLike(postId) {
-            const likeButton = document.querySelector(`#${postId} .likes`);
-            const likeCount = document.querySelector(`#${postId} .like-count`);
-            
-            if (likedPosts.has(postId)) {
-                likedPosts.delete(postId);
-                likeButton.classList.remove('liked');
-                likeCount.textContent = parseInt(likeCount.textContent) - 1;
-            } else {
-                likedPosts.add(postId);
-                likeButton.classList.add('liked');
-                likeCount.textContent = parseInt(likeCount.textContent) + 1;
-            }
-        }
-
-        // Toggle like on comment
-        function toggleCommentLike(commentId) {
-            const likeButton = document.querySelector(`#${commentId} .likes`);
-            const likeCount = document.querySelector(`#${commentId} .like-count`);
-            
-            if (likedComments.has(commentId)) {
-                likedComments.delete(commentId);
-                likeButton.classList.remove('liked');
-                likeCount.textContent = parseInt(likeCount.textContent) - 1;
-            } else {
-                likedComments.add(commentId);
-                likeButton.classList.add('liked');
-                likeCount.textContent = parseInt(likeCount.textContent) + 1;
-            }
-        }
-
-        // Focus comment input
-        function focusComment(postId) {
-            const input = document.getElementById(`comment-${postId}`);
-            if (input) {
-                input.focus();
-            }
-        }
-
-        // Load posts when page loads
-        window.addEventListener('load', loadPosts);
-    </script>
+    <script src="script.js"></script>
 </body>
 </html> 
