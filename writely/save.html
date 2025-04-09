@@ -69,12 +69,36 @@
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             // Get the saved content from localStorage
-            const savedContent = localStorage.getItem('writely_document');
             const fileContentElement = document.getElementById('fileContent');
+            
+            // Check for content from all possible localStorage keys
+            const possibleKeys = [
+                'writely_document',
+                'private_information',
+                'cocaine_production',
+                'writely_document_ai_content',
+                'writely_document_trip_plan',
+                'writely_document_cookie_recipe',
+                'writely_document_hahm'
+            ];
+            
+            let savedContent = null;
+            let usedKey = null;
+            
+            // Try to find content from any of the possible keys
+            for (const key of possibleKeys) {
+                const content = localStorage.getItem(key);
+                if (content) {
+                    savedContent = content;
+                    usedKey = key;
+                    break;
+                }
+            }
             
             if (savedContent) {
                 // Display the saved content
                 fileContentElement.innerHTML = savedContent;
+                console.log(`Content loaded from key: ${usedKey}`);
             } else {
                 fileContentElement.innerHTML = '<p class="text-muted">No content found.</p>';
             }

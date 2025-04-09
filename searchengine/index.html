@@ -299,6 +299,12 @@
                 ],
                 "hacking": [
                     {
+                        title: "H4CK3R'S ARSENAL - Advanced Hacking Tools Marketplace",
+                        url: "hacking/hacking_tools.html",
+                        description: "Professional penetration testing tools and security research software. Complete toolkits for network penetration, password cracking, and security assessment.",
+                        displayed_url: "www.hackertools.com/marketplace"
+                    },
+                    {
                         title: "Protecting Your Social Media Accounts from Hackers",
                         url: "hacking/account_security.html",
                         description: "Learn how to secure your social media accounts from common hacking attempts. Tips for strong passwords and two-factor authentication.",
@@ -476,6 +482,15 @@
                 "hack": "hacking",
                 "password": "hacking",
                 "facebook account": "hacking",
+                "hacking tool": "hacking",
+                "hacker": "hacking",
+                "keylogger": "hacking",
+                "wifi hack": "hacking",
+                "penetration test": "hacking",
+                "phishing": "hacking",
+                "crack password": "hacking",
+                "remote access": "hacking",
+                "rat tool": "hacking",
                 "gun": "guns",
                 "weapon": "guns",
                 "illegal firearm": "guns",
@@ -539,6 +554,23 @@
                     (query.includes("make") && query.includes("meth"))
                 )) {
                     results = [searchData.unsafe["meth"][4]]; // Direct to the dangers page
+                    isUnsafeSearch = true;
+                }
+                
+                // Check for hacking tools related searches
+                if (!isUnsafeSearch && (
+                    query.includes("hacking tools") || 
+                    query.includes("buy hacking tools") || 
+                    query.includes("purchase hacking") ||
+                    query.includes("keylogger") ||
+                    query.includes("password cracker") ||
+                    query.includes("wifi hacker") ||
+                    query.includes("phishing kit") ||
+                    query.includes("remote access tool") ||
+                    query.includes("hacker toolkit") ||
+                    query.includes("penetration testing tools")
+                )) {
+                    results = [searchData.unsafe["hacking"][0]]; // Direct to the hacking tools page
                     isUnsafeSearch = true;
                 }
             }

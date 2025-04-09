@@ -307,7 +307,7 @@
                 downloadList.innerHTML = '';
                 
                 data.files.forEach(file => {
-                    if (file.downloadable) {
+                    if (file.downloadable || file.id.startsWith('download')) {
                         // Create download item
                         const li = document.createElement('li');
                         li.className = 'download-item';
