@@ -106,14 +106,6 @@
         .btn-outline-secondary:hover {
             background-color: #f1f3f4;
         }
-        .page {
-            width: 100%;
-            min-height: 1056px;
-            padding: 40px;
-            background: white;
-            box-shadow: 0 1px 2px rgba(0,0,0,0.1);
-            margin-bottom: 40px;
-        }
         @media print {
             .navbar, .toolbar {
                 display: none;
@@ -125,11 +117,6 @@
             }
             .editor {
                 padding: 0;
-            }
-            .page {
-                box-shadow: none;
-                margin: 0;
-                padding: 20px;
             }
         }
     </style>
@@ -217,9 +204,7 @@
                 </button>
             </div>
         </div>
-        <div class="editor" contenteditable="true">
-            <div class="page"></div>
-        </div>
+        <div class="editor" contenteditable="true"></div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
@@ -302,4 +287,4 @@
         });
     </script>
 </body>
-</html> 
+</html>
