@@ -1,5 +1,39 @@
 let posts = [];
 
+// Suggested users data
+const suggestedUsers = [
+    {
+        id: 1,
+        name: "Alice",
+        bio: "Digital artist and designer",
+        avatar: "A"
+    },
+    {
+        id: 2,
+        name: "Bob",
+        bio: "Tech enthusiast and developer",
+        avatar: "B"
+    },
+    {
+        id: 3,
+        name: "Charlie",
+        bio: "Photography lover",
+        avatar: "C"
+    },
+    {
+        id: 4,
+        name: "Diana",
+        bio: "Travel blogger",
+        avatar: "D"
+    },
+    {
+        id: 5,
+        name: "Eve",
+        bio: "Food and lifestyle",
+        avatar: "E"
+    }
+];
+
 // Load initial posts from JSON
 async function loadPosts() {
     try {
@@ -134,5 +168,35 @@ function addComment(button, postId) {
     }
 }
 
-// Load posts when the page loads
-document.addEventListener('DOMContentLoaded', loadPosts); 
+// Load suggested users
+function loadSuggestedUsers() {
+    const suggestedUsersContainer = document.getElementById('suggestedUsers');
+    suggestedUsers.forEach(user => {
+        const userElement = document.createElement('div');
+        userElement.className = 'suggested-user';
+        userElement.innerHTML = `
+            <div class="user-avatar">${user.avatar}</div>
+            <div class="user-info">
+                <div class="user-name">${user.name}</div>
+                <div class="user-bio">${user.bio}</div>
+            </div>
+            <button class="follow-button" onclick="toggleFollow(this)">Follow</button>
+        `;
+        suggestedUsersContainer.appendChild(userElement);
+    });
+}
+
+// Toggle follow button
+function toggleFollow(button) {
+    button.classList.toggle('following');
+    button.textContent = button.classList.contains('following') ? 'Following' : 'Follow';
+}
+
+// Initialize the app
+function initApp() {
+    loadPosts();
+    loadSuggestedUsers();
+}
+
+// Call initApp when the page loads
+document.addEventListener('DOMContentLoaded', initApp); 
