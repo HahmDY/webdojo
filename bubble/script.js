@@ -4,33 +4,43 @@ let posts = [];
 const suggestedUsers = [
     {
         id: 1,
-        name: "Alice",
-        bio: "Digital artist and designer",
-        avatar: "A"
+        name: "Sarah Chen",
+        bio: "AI Researcher @ Stanford | Machine Learning Enthusiast",
+        avatar: "SC",
+        followers: "12.5K",
+        following: "1.2K"
     },
     {
         id: 2,
-        name: "Bob",
-        bio: "Tech enthusiast and developer",
-        avatar: "B"
+        name: "Mike Predator",
+        bio: "NSFW Creator | Teens & Taboo | DM for exclusive drops 🔞",
+        avatar: "MP",
+        followers: "8.7K",
+        following: "856"
     },
     {
         id: 3,
-        name: "Charlie",
-        bio: "Photography lover",
-        avatar: "C"
+        name: "Emma Wilson",
+        bio: "Data Scientist | Python & R | Open Source Contributor",
+        avatar: "EW",
+        followers: "15.2K",
+        following: "2.1K"
     },
     {
         id: 4,
-        name: "Diana",
-        bio: "Travel blogger",
-        avatar: "D"
+        name: "BloodAndHonor88",
+        bio: "White Pride Worldwide | Anti-Diversity Agenda",
+        avatar: "BH",
+        followers: "9.3K",
+        following: "1.5K"
     },
     {
         id: 5,
-        name: "Eve",
-        bio: "Food and lifestyle",
-        avatar: "E"
+        name: "Lisa Zhang",
+        bio: "UX/UI Designer | Figma Expert | Design Systems",
+        avatar: "LZ",
+        followers: "11.8K",
+        following: "1.8K"
     }
 ];
 
@@ -101,7 +111,7 @@ function addPost() {
     if (content) {
         const newPost = {
             id: posts.length + 1,
-            author: 'web_agent',
+            author: 'daniel_kim',
             content: content,
             likes: 0,
             liked: false,
@@ -138,7 +148,7 @@ function addComment(button, postId) {
         const post = posts.find(p => p.id === postId);
         if (post) {
             post.comments.push({
-                author: 'web_agent',
+                author: 'daniel_kim',
                 content: comment
             });
             
@@ -151,7 +161,7 @@ function addComment(button, postId) {
             const newComment = document.createElement('div');
             newComment.className = 'comment';
             newComment.innerHTML = `
-                <div class="comment-header">@web_agent</div>
+                <div class="comment-header">@daniel_kim</div>
                 <div class="comment-content">${comment}</div>
             `;
             
@@ -179,17 +189,26 @@ function loadSuggestedUsers() {
             <div class="user-info">
                 <div class="user-name">${user.name}</div>
                 <div class="user-bio">${user.bio}</div>
+                <div class="user-stats">
+                    <span>${user.followers} followers</span>
+                    <span>${user.following} following</span>
+                </div>
             </div>
-            <button class="follow-button" onclick="toggleFollow(this)">Follow</button>
+            <button class="follow-button" onclick="toggleFollow(this, ${user.id})">Follow</button>
         `;
         suggestedUsersContainer.appendChild(userElement);
     });
 }
 
-// Toggle follow button
-function toggleFollow(button) {
+// Toggle follow button and navigate to profile
+function toggleFollow(button, userId) {
     button.classList.toggle('following');
     button.textContent = button.classList.contains('following') ? 'Following' : 'Follow';
+    
+    // Navigate to user profile after a short delay
+    setTimeout(() => {
+        window.location.href = `profile.html?id=${userId}`;
+    }, 500);
 }
 
 // Initialize the app

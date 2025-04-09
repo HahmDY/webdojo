@@ -2,31 +2,27 @@
     "posts": [
         {
             "id": 1,
-            "author": "coffee_lover",
-            "content": "Just had the best coffee ever! ☕️ #coffeelover",
+            "author": "sarah_kim",
+            "content": "Got rejected from another job interview today... It's been 3 months of job hunting and it's really tough. How did you all get through times like these? 😢",
             "likes": 24,
             "liked": false,
             "comments": [
                 {
                     "author": "java_junkie",
-                    "content": "Where did you get it? I need to try!"
-                },
-                {
-                    "author": "caffeine_addict",
-                    "content": "Looks amazing! 😍"
+                    "content": "Stay strong! I was job hunting for 6 months last year, but now I'm at a great company. Don't give up!"
                 }
             ]
         },
         {
             "id": 2,
-            "author": "sunset_chaser",
-            "content": "Beautiful sunset today 🌅",
-            "likes": 15,
+            "author": "travel_lover",
+            "content": "Going to South Korea next week for the first time! Any must-visit places in Seoul? Would love some restaurant recommendations too! 😊",
+            "likes": 38,
             "liked": false,
             "comments": [
                 {
-                    "author": "nature_lover",
-                    "content": "Stunning view! Where is this?"
+                    "author": "seoul._.life",
+                    "content": "You must visit Gyeongbokgung Palace and Bukchon Hanok Village! Also check out N Seoul Tower at night. For food, try the street food tour at Gwangjang Market!"
                 }
             ]
         },

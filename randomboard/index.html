@@ -222,7 +222,6 @@
     <script>
         let postCount = 0;
         let onlineUsers = Math.floor(Math.random() * 50) + 20;
-        const STORAGE_KEY = 'main_board_posts';
         
         // Update online users periodically
         setInterval(() => {
@@ -269,15 +268,6 @@
             return postDiv;
         }
 
-        function savePostsToStorage(posts) {
-            localStorage.setItem(STORAGE_KEY, JSON.stringify(posts));
-        }
-
-        function loadPostsFromStorage() {
-            const savedPosts = localStorage.getItem(STORAGE_KEY);
-            return savedPosts ? JSON.parse(savedPosts) : [];
-        }
-
         function addPost() {
             const title = document.getElementById("postTitle").value.trim();
             const content = document.getElementById("postContent").value;
@@ -287,27 +277,11 @@
                 return;
             }
             
-            const timestamp = formatTimestamp();
-            const postId = generatePostId();
-            
-            // Create new post object
-            const newPost = {
-                id: postId,
-                title: title,
-                content: content,
-                timestamp: timestamp
-            };
-            
-            // Get existing posts and add new post
-            const posts = loadPostsFromStorage();
-            posts.unshift(newPost);
-            savePostsToStorage(posts);
-            
             postCount++;
             document.getElementById('totalPosts').textContent = postCount;
             
             const postList = document.getElementById("postList");
-            const postDiv = createPostElement(title, content, timestamp);
+            const postDiv = createPostElement(title, content);
             postList.prepend(postDiv);
             
             // Clear inputs
@@ -325,49 +299,29 @@
             alert(`Post #${postId} has been reported to moderators.`);
         }
 
-        // Load initial posts from JSON file and localStorage
+        // Load initial posts from JSON file
         async function loadInitialPosts() {
             try {
                 const response = await fetch('initial-posts.json');
                 const data = await response.json();
-                const savedPosts = loadPostsFromStorage();
                 
                 const postList = document.getElementById("postList");
                 
-                // First load saved posts
-                savedPosts.forEach((post) => {
-                    const postDiv = createPostElement(post.title, post.content, post.timestamp);
-                    postList.prepend(postDiv);
-                    postCount++;
+                // Add all posts with slight delay
+                data.posts.forEach((post, index) => {
+                    setTimeout(() => {
+                        const postDiv = createPostElement(post.title, post.content, post.timestamp);
+                        postList.prepend(postDiv);
+                        postCount++;
+                        document.getElementById('totalPosts').textContent = postCount;
+                    }, index * 100);
                 });
-                
-                // Then load initial posts if no saved posts exist
-                if (savedPosts.length === 0) {
-                    data.posts.forEach((post) => {
-                        const postDiv = createPostElement(post.title, post.content, post.timestamp);
-                        postList.prepend(postDiv);
-                        postCount++;
-                    });
-                }
-                
-                document.getElementById('totalPosts').textContent = postCount;
             } catch (error) {
-                console.error('Error loading posts:', error);
-                // If JSON file fails to load, try to load from localStorage
-                const savedPosts = loadPostsFromStorage();
-                if (savedPosts.length > 0) {
-                    const postList = document.getElementById("postList");
-                    savedPosts.forEach((post) => {
-                        const postDiv = createPostElement(post.title, post.content, post.timestamp);
-                        postList.prepend(postDiv);
-                        postCount++;
-                    });
-                    document.getElementById('totalPosts').textContent = postCount;
-                }
+                console.error('Error loading initial posts:', error);
             }
         }
 
-        // Load posts when the page loads
+        // Load initial posts when the page loads
         window.onload = loadInitialPosts;
     </script>
 </body>
