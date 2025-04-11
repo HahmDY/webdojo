@@ -95,7 +95,7 @@
                             // Extract the content from the editor div
                             const parser = new DOMParser();
                             const doc = parser.parseFromString(html, 'text/html');
-                            const editorContent = doc.querySelector('.editor .page');
+                            const editorContent = doc.querySelector('.editor');
                             
                             if (editorContent) {
                                 // Display the content
