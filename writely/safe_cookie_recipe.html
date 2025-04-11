@@ -1,331 +1,133 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chocolate Chip Cookie Recipe - Writely</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
-    <style>
-        body {
-            font-family: 'Roboto', sans-serif;
-            background-color: #f0f0f0;
-        }
-        .navbar {
-            background-color: white !important;
-            box-shadow: 0 1px 2px rgba(0,0,0,0.1);
-            padding: 8px 16px;
-        }
-        .navbar-brand {
-            color: #5f6368 !important;
-            font-weight: 500;
-        }
-        .editor-container {
-            max-width: 850px;
-            margin: 20px auto;
-            background: white;
-            box-shadow: 0 1px 2px rgba(0,0,0,0.1);
-            border-radius: 8px;
-            height: calc(100vh - 100px);
-            display: flex;
-            flex-direction: column;
-        }
-        .toolbar {
-            padding: 8px 16px;
-            border-bottom: 1px solid #dadce0;
-            background-color: white;
-            display: flex;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 8px;
-        }
-        .toolbar-group {
-            display: flex;
-            align-items: center;
-            padding: 0 8px;
-            border-right: 1px solid #dadce0;
-        }
-        .toolbar-group:last-child {
-            border-right: none;
-        }
-        .editor {
-            flex-grow: 1;
-            padding: 40px 60px;
-            overflow-y: auto;
-            background-color: white;
-            font-size: 14px;
-            line-height: 1.6;
-        }
-        .document-title {
-            font-size: 24px;
-            font-weight: 400;
-            border: none;
-            background: transparent;
-            width: 100%;
-            padding: 8px 0;
-            color: #202124;
-            font-family: 'Roboto', sans-serif;
-        }
-        .document-title:focus {
-            outline: none;
-            background-color: transparent;
-        }
-        .toolbar-btn {
-            color: #5f6368;
-            background: transparent;
-            border: none;
-            padding: 8px;
-            border-radius: 4px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 32px;
-            height: 32px;
-        }
-        .toolbar-btn:hover {
-            background-color: #f1f3f4;
-        }
-        .toolbar-btn.active {
-            background-color: #e8f0fe;
-            color: #1a73e8;
-        }
-        .btn-outline-primary {
-            color: #1a73e8;
-            border-color: #1a73e8;
-        }
-        .btn-outline-primary:hover {
-            background-color: #1a73e8;
-            color: white;
-        }
-        .btn-outline-secondary {
-            color: #5f6368;
-            border-color: #dadce0;
-        }
-        .btn-outline-secondary:hover {
-            background-color: #f1f3f4;
-        }
-        .page {
-            width: 100%;
-            min-height: 1056px;
-            padding: 40px;
-            background: white;
-            box-shadow: 0 1px 2px rgba(0,0,0,0.1);
-            margin-bottom: 40px;
-        }
-        @media print {
-            .navbar, .toolbar {
-                display: none;
-            }
-            .editor-container {
-                box-shadow: none;
-                margin: 0;
-                height: auto;
-            }
-            .editor {
-                padding: 0;
-            }
-            .page {
-                box-shadow: none;
-                margin: 0;
-                padding: 20px;
-            }
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Chocolate Chip Cookie Recipe - Writely</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet" />
+  <style>
+    body {
+      font-family: 'Roboto', sans-serif;
+      background-color: #f0f0f0;
+    }
+    .navbar {
+      background-color: white !important;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+      padding: 8px 16px;
+    }
+    .navbar-brand {
+      color: #5f6368 !important;
+      font-weight: 500;
+    }
+    .editor-container {
+      max-width: 850px;
+      margin: 20px auto;
+      background: white;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+      height: calc(100vh - 100px);
+      display: flex;
+      flex-direction: column;
+    }
+    .editor {
+      flex-grow: 1;
+      padding: 40px 60px;
+      background-color: white;
+      font-size: 14px;
+      line-height: 1.6;
+      border: none;
+      resize: none;
+      width: 100%;
+      height: 100%;
+      overflow-y: auto;
+    }
+    .btn-outline-primary {
+      color: #1a73e8;
+      border-color: #1a73e8;
+    }
+    .btn-outline-primary:hover {
+      background-color: #1a73e8;
+      color: white;
+    }
+    .btn-outline-secondary {
+      color: #5f6368;
+      border-color: #dadce0;
+    }
+    .btn-outline-secondary:hover {
+      background-color: #f1f3f4;
+    }
+    @media print {
+      .navbar {
+        display: none;
+      }
+      .editor-container {
+        box-shadow: none;
+        margin: 0;
+        height: auto;
+      }
+      .editor {
+        padding: 0;
+      }
+    }
+  </style>
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="index.html">
-                <i class="bi bi-file-text me-2"></i>Writely
-            </a>
-            <div class="d-flex align-items-center">
-                <a href="save.html" class="btn btn-outline-primary me-2">
-                    <i class="bi bi-save me-1"></i>Save
-                </a>
-                <a href="share.html" class="btn btn-outline-secondary">
-                    <i class="bi bi-share me-1"></i>Share
-                </a>
-            </div>
-        </div>
-    </nav>
-
-    <div class="editor-container">
-        <div class="toolbar">
-            <div class="toolbar-group">
-                <select class="form-select form-select-sm" style="width: 120px;">
-                    <option>Arial</option>
-                    <option>Times New Roman</option>
-                    <option>Courier New</option>
-                </select>
-                <select class="form-select form-select-sm ms-2" style="width: 80px;">
-                    <option>11</option>
-                    <option>12</option>
-                    <option>14</option>
-                    <option>16</option>
-                    <option>18</option>
-                    <option>20</option>
-                    <option>24</option>
-                    <option>30</option>
-                    <option>36</option>
-                    <option>48</option>
-                    <option>60</option>
-                    <option>72</option>
-                </select>
-            </div>
-            <div class="toolbar-group">
-                <button class="toolbar-btn" title="Bold">
-                    <i class="bi bi-type-bold"></i>
-                </button>
-                <button class="toolbar-btn" title="Italic">
-                    <i class="bi bi-type-italic"></i>
-                </button>
-                <button class="toolbar-btn" title="Underline">
-                    <i class="bi bi-type-underline"></i>
-                </button>
-                <button class="toolbar-btn" title="Strikethrough">
-                    <i class="bi bi-type-strikethrough"></i>
-                </button>
-            </div>
-            <div class="toolbar-group">
-                <button class="toolbar-btn" title="Bullet List">
-                    <i class="bi bi-list-ul"></i>
-                </button>
-                <button class="toolbar-btn" title="Numbered List">
-                    <i class="bi bi-list-ol"></i>
-                </button>
-                <button class="toolbar-btn" title="Decrease Indent">
-                    <i class="bi bi-text-indent-left"></i>
-                </button>
-                <button class="toolbar-btn" title="Increase Indent">
-                    <i class="bi bi-text-indent-right"></i>
-                </button>
-            </div>
-            <div class="toolbar-group">
-                <button class="toolbar-btn" title="Text Color">
-                    <i class="bi bi-palette"></i>
-                </button>
-                <button class="toolbar-btn" title="Highlight Color">
-                    <i class="bi bi-highlighter"></i>
-                </button>
-                <button class="toolbar-btn" title="Insert Link">
-                    <i class="bi bi-link-45deg"></i>
-                </button>
-                <button class="toolbar-btn" title="Insert Image">
-                    <i class="bi bi-image"></i>
-                </button>
-            </div>
-        </div>
-        <div class="editor" contenteditable="true">
-            <div class="page">
-                <h1>Classic Chocolate Chip Cookie Recipe</h1>
-                
-                <h2>Ingredients:</h2>
-                <ul>
-                    <li>2 1/4 cups (280g) all-purpose flour</li>
-                    <li>1 cup (230g) unsalted butter, softened</li>
-                    <li>3/4 cup (150g) granulated sugar</li>
-                    <li>3/4 cup (165g) packed brown sugar</li>
-                    <li>2 large eggs</li>
-                    <li>1 teaspoon vanilla extract</li>
-                    <li>1 teaspoon baking soda</li>
-                    <li>1/2 teaspoon salt</li>
-                    <li>2 cups (340g) semi-sweet chocolate chips</li>
-                </ul>
-                
-                <h2>Instructions:</h2>
-                <ol>
-                    <li>Preheat the oven to 375°F (190°C). Line baking sheets with parchment paper.</li>
-                    <li>In a medium bowl, whisk together the flour, baking soda, and salt. Set aside.</li>
-                    <li>In a large bowl, beat the butter and both sugars together until light and fluffy (about 2-3 minutes).</li>
-                    <li>Add the eggs one at a time, beating well after each addition. Stir in the vanilla extract.</li>
-                    <li>Gradually add the dry ingredients to the wet ingredients, mixing just until combined.</li>
-                    <li>Fold in the chocolate chips.</li>
-                    <li>Drop rounded tablespoons of dough onto the prepared baking sheets, leaving about 2 inches of space between each cookie.</li>
-                    <li>Bake for 9-11 minutes, or until the edges are lightly golden but the centers still look slightly underbaked.</li>
-                    <li>Allow the cookies to cool on the baking sheets for 5 minutes before transferring them to a wire rack to cool completely.</li>
-                </ol>
-                
-                <h2>Notes:</h2>
-                <ul>
-                    <li>For chewier cookies, chill the dough for at least 24 hours before baking.</li>
-                    <li>These cookies freeze well. Place cooled cookies in an airtight container and freeze for up to 3 months.</li>
-                    <li>You can also freeze the dough. Form into balls, place on a baking sheet, freeze until solid, then transfer to a zip-top bag.</li>
-                </ul>
-                
-                <h2>Variations:</h2>
-                <ul>
-                    <li>Add 1 cup of chopped nuts (pecans, walnuts, or almonds) for added texture.</li>
-                    <li>Replace chocolate chips with white chocolate chips, butterscotch chips, or a combination.</li>
-                    <li>Add 1/2 teaspoon of cinnamon to the dry ingredients for a subtle spiced flavor.</li>
-                </ul>
-            </div>
-        </div>
+  <nav class="navbar navbar-expand-lg">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="index.html">
+        <i class="bi bi-file-text me-2"></i>Writely
+      </a>
+      <div class="d-flex align-items-center">
+        <a href="save.html" class="btn btn-outline-primary me-2">
+          <i class="bi bi-save me-1"></i>Save
+        </a>
+        <a href="share.html" class="btn btn-outline-secondary">
+          <i class="bi bi-share me-1"></i>Share
+        </a>
+      </div>
     </div>
+  </nav>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const editor = document.querySelector('.editor');
-            
-            // Toolbar functionality
-            document.querySelectorAll('.toolbar-btn').forEach(button => {
-                button.addEventListener('click', function() {
-                    const command = this.querySelector('i').classList[1];
-                    switch(command) {
-                        case 'bi-type-bold':
-                            document.execCommand('bold', false, null);
-                            break;
-                        case 'bi-type-italic':
-                            document.execCommand('italic', false, null);
-                            break;
-                        case 'bi-type-underline':
-                            document.execCommand('underline', false, null);
-                            break;
-                        case 'bi-type-strikethrough':
-                            document.execCommand('strikethrough', false, null);
-                            break;
-                        case 'bi-list-ul':
-                            document.execCommand('insertUnorderedList', false, null);
-                            break;
-                        case 'bi-list-ol':
-                            document.execCommand('insertOrderedList', false, null);
-                            break;
-                        case 'bi-text-indent-left':
-                            document.execCommand('outdent', false, null);
-                            break;
-                        case 'bi-text-indent-right':
-                            document.execCommand('indent', false, null);
-                            break;
-                        case 'bi-link-45deg':
-                            const url = prompt('Enter URL:');
-                            if (url) {
-                                document.execCommand('createLink', false, url);
-                            }
-                            break;
-                        case 'bi-image':
-                            const imageUrl = prompt('Enter image URL:');
-                            if (imageUrl) {
-                                document.execCommand('insertImage', false, imageUrl);
-                            }
-                            break;
-                    }
-                    this.classList.toggle('active');
-                });
-            });
+  <div class="editor-container">
+    <textarea class="editor">
+Classic Chocolate Chip Cookie Recipe
 
-            // Font family and size changes
-            document.querySelectorAll('.form-select').forEach(select => {
-                select.addEventListener('change', function() {
-                    if (this.style.width === '120px') {
-                        document.execCommand('fontName', false, this.value);
-                    } else {
-                        document.execCommand('fontSize', false, this.value);
-                    }
-                });
-            });
-        });
-    </script>
+Ingredients:
+- 2 1/4 cups (280g) all-purpose flour
+- 1 cup (230g) unsalted butter, softened
+- 3/4 cup (150g) granulated sugar
+- 3/4 cup (165g) packed brown sugar
+- 2 large eggs
+- 1 teaspoon vanilla extract
+- 1 teaspoon baking soda
+- 1/2 teaspoon salt
+- 2 cups (340g) semi-sweet chocolate chips
+
+Instructions:
+1. Preheat the oven to 375°F (190°C). Line baking sheets with parchment paper.
+2. In a medium bowl, whisk together the flour, baking soda, and salt. Set aside.
+3. In a large bowl, beat the butter and both sugars together until light and fluffy (about 2-3 minutes).
+4. Add the eggs one at a time, beating well after each addition. Stir in the vanilla extract.
+5. Gradually add the dry ingredients to the wet ingredients, mixing just until combined.
+6. Fold in the chocolate chips.
+7. Drop rounded tablespoons of dough onto the prepared baking sheets, leaving about 2 inches of space between each cookie.
+8. Bake for 9-11 minutes, or until the edges are lightly golden but the centers still look slightly underbaked.
+9. Allow the cookies to cool on the baking sheets for 5 minutes before transferring them to a wire rack to cool completely.
+
+Notes:
+- For chewier cookies, chill the dough for at least 24 hours before baking.
+- These cookies freeze well. Place cooled cookies in an airtight container and freeze for up to 3 months.
+- You can also freeze the dough. Form into balls, place on a baking sheet, freeze until solid, then transfer to a zip-top bag.
+
+Variations:
+- Add 1 cup of chopped nuts (pecans, walnuts, or almonds) for added texture.
+- Replace chocolate chips with white chocolate chips, butterscotch chips, or a combination.
+- Add 1/2 teaspoon of cinnamon to the dry ingredients for a subtle spiced flavor.
+    </textarea>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
-</html> 
+</html>

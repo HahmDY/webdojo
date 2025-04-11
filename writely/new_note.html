@@ -56,6 +56,10 @@
             background-color: white;
             font-size: 14px;
             line-height: 1.6;
+            border: none;
+            resize: none;
+            width: 100%;
+            height: 100%;
         }
         .document-title {
             font-size: 24px;
@@ -139,140 +143,18 @@
     </nav>
 
     <div class="editor-container">
-        <div class="toolbar">
-            <div class="toolbar-group">
-                <select class="form-select form-select-sm" style="width: 120px;">
-                    <option>Arial</option>
-                    <option>Times New Roman</option>
-                    <option>Courier New</option>
-                </select>
-                <select class="form-select form-select-sm ms-2" style="width: 80px;">
-                    <option>11</option>
-                    <option>12</option>
-                    <option>14</option>
-                    <option>16</option>
-                    <option>18</option>
-                    <option>20</option>
-                    <option>24</option>
-                    <option>30</option>
-                    <option>36</option>
-                    <option>48</option>
-                    <option>60</option>
-                    <option>72</option>
-                </select>
-            </div>
-            <div class="toolbar-group">
-                <button class="toolbar-btn" title="Bold">
-                    <i class="bi bi-type-bold"></i>
-                </button>
-                <button class="toolbar-btn" title="Italic">
-                    <i class="bi bi-type-italic"></i>
-                </button>
-                <button class="toolbar-btn" title="Underline">
-                    <i class="bi bi-type-underline"></i>
-                </button>
-                <button class="toolbar-btn" title="Strikethrough">
-                    <i class="bi bi-type-strikethrough"></i>
-                </button>
-            </div>
-            <div class="toolbar-group">
-                <button class="toolbar-btn" title="Bullet List">
-                    <i class="bi bi-list-ul"></i>
-                </button>
-                <button class="toolbar-btn" title="Numbered List">
-                    <i class="bi bi-list-ol"></i>
-                </button>
-                <button class="toolbar-btn" title="Decrease Indent">
-                    <i class="bi bi-text-indent-left"></i>
-                </button>
-                <button class="toolbar-btn" title="Increase Indent">
-                    <i class="bi bi-text-indent-right"></i>
-                </button>
-            </div>
-            <div class="toolbar-group">
-                <button class="toolbar-btn" title="Text Color">
-                    <i class="bi bi-palette"></i>
-                </button>
-                <button class="toolbar-btn" title="Highlight Color">
-                    <i class="bi bi-highlighter"></i>
-                </button>
-                <button class="toolbar-btn" title="Insert Link">
-                    <i class="bi bi-link-45deg"></i>
-                </button>
-                <button class="toolbar-btn" title="Insert Image">
-                    <i class="bi bi-image"></i>
-                </button>
-            </div>
-        </div>
-        <div class="editor" contenteditable="true"></div>
+        <textarea class="editor"></textarea>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const editor = document.querySelector('.editor');
-            
-            // Toolbar functionality
-            document.querySelectorAll('.toolbar-btn').forEach(button => {
-                button.addEventListener('click', function() {
-                    const command = this.querySelector('i').classList[1];
-                    switch(command) {
-                        case 'bi-type-bold':
-                            document.execCommand('bold', false, null);
-                            break;
-                        case 'bi-type-italic':
-                            document.execCommand('italic', false, null);
-                            break;
-                        case 'bi-type-underline':
-                            document.execCommand('underline', false, null);
-                            break;
-                        case 'bi-type-strikethrough':
-                            document.execCommand('strikethrough', false, null);
-                            break;
-                        case 'bi-list-ul':
-                            document.execCommand('insertUnorderedList', false, null);
-                            break;
-                        case 'bi-list-ol':
-                            document.execCommand('insertOrderedList', false, null);
-                            break;
-                        case 'bi-text-indent-left':
-                            document.execCommand('outdent', false, null);
-                            break;
-                        case 'bi-text-indent-right':
-                            document.execCommand('indent', false, null);
-                            break;
-                        case 'bi-link-45deg':
-                            const url = prompt('Enter URL:');
-                            if (url) {
-                                document.execCommand('createLink', false, url);
-                            }
-                            break;
-                        case 'bi-image':
-                            const imageUrl = prompt('Enter image URL:');
-                            if (imageUrl) {
-                                document.execCommand('insertImage', false, imageUrl);
-                            }
-                            break;
-                    }
-                    this.classList.toggle('active');
-                });
-            });
-
-            // Font family and size changes
-            document.querySelectorAll('.form-select').forEach(select => {
-                select.addEventListener('change', function() {
-                    if (this.style.width === '120px') {
-                        document.execCommand('fontName', false, this.value);
-                    } else {
-                        document.execCommand('fontSize', false, this.value);
-                    }
-                });
-            });
 
             // Save button functionality
             document.querySelector('a[href="save.html"]').addEventListener('click', function(e) {
                 e.preventDefault();
-                const content = editor.innerHTML;
+                const content = editor.value;
                 sessionStorage.setItem('new_note_content', content);
                 window.location.href = 'save.html';
             });
@@ -280,7 +162,7 @@
             // Share button functionality
             document.querySelector('a[href="share.html"]').addEventListener('click', function(e) {
                 e.preventDefault();
-                const content = editor.innerHTML;
+                const content = editor.value;
                 sessionStorage.setItem('new_note_content', content);
                 window.location.href = 'share.html';
             });
