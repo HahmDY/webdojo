@@ -148,11 +148,6 @@
     
     <div class="post-form">
         <div class="input-group">
-            <label for="postTitle">&gt; Title (optional):</label>
-            <input type="text" id="postTitle" placeholder="Enter title...">
-        </div>
-        
-        <div class="input-group">
             <label for="postContent">&gt; Message:</label>
             <textarea id="postContent" placeholder="Write your message here..."></textarea>
         </div>
@@ -212,7 +207,6 @@
         }
 
         function addPost() {
-            const title = document.getElementById("postTitle").value.trim();
             const content = document.getElementById("postContent").value;
             
             if (content.trim() === "") {
@@ -224,11 +218,10 @@
             document.getElementById('totalPosts').textContent = postCount;
             
             const postList = document.getElementById("postList");
-            const postDiv = createPostElement(title, content);
+            const postDiv = createPostElement(null, content);
             postList.prepend(postDiv);
             
-            // Clear inputs
-            document.getElementById("postTitle").value = "";
+            // Clear input
             document.getElementById("postContent").value = "";
         }
 

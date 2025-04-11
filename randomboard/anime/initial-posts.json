@@ -1,19 +1,16 @@
 {
     "posts": [
         {
-            "title": "Attack on Titan Final Season Discussion",
+            "content": "Welcome to the Anime & Manga board! Discuss your favorite anime, manga, and related topics here.",
+            "timestamp": "03/21/24 14:30:00"
+        },
+        {
             "content": "Just finished watching the final episode. The ending was so emotional! What did you guys think about Eren's final decision?",
             "timestamp": "03/21/24 14:30:00"
         },
         {
-            "title": "Best Isekai Anime of 2024?",
             "content": "Looking for some good isekai recommendations. Already watched Mushoku Tensei and Re:Zero. What else is worth watching?",
             "timestamp": "03/21/24 14:35:00"
-        },
-        {
-            "title": "One Piece Chapter 1100+ Discussion",
-            "content": "The latest chapter was insane! Gear 5 Luffy vs. Kaido was absolutely epic. Who else thinks this is the best arc so far?",
-            "timestamp": "03/21/24 14:40:00"
         }
     ]
 } 

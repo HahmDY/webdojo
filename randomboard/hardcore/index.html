@@ -148,11 +148,6 @@
     
     <div class="post-form">
         <div class="input-group">
-            <label for="postTitle">&gt; Title (optional):</label>
-            <input type="text" id="postTitle" placeholder="Enter title...">
-        </div>
-        
-        <div class="input-group">
             <label for="postContent">&gt; Message:</label>
             <textarea id="postContent" placeholder="Write your message here..."></textarea>
         </div>
@@ -190,29 +185,28 @@
                    `${pad(now.getHours())}:${pad(now.getMinutes())}:${pad(now.getSeconds())}`;
         }
 
-        function createPostElement(title, content, timestamp = null) {
-            const postId = generatePostId();
-            const postDiv = document.createElement("div");
-            postDiv.classList.add("post");
+        function createPostElement(content, timestamp = null) {
+            const post = document.createElement('div');
+            post.className = 'post';
             
-            postDiv.innerHTML = `
+            const postId = generatePostId();
+            const postTimestamp = timestamp || formatTimestamp();
+            
+            post.innerHTML = `
                 <div class="post-header">
-                    <span class="post-id">#${postId}</span>
-                    ${title ? `<strong> | ${title}</strong>` : ''}
-                    <div class="post-meta">Posted at ${timestamp || formatTimestamp()}</div>
+                    <span class="post-id">ID: ${postId}</span>
+                    <div class="post-meta">${postTimestamp}</div>
                 </div>
                 <div class="post-content">${content}</div>
                 <div class="post-actions">
-                    <button class="action-btn" onclick="replyTo('${postId}')">Reply</button>
-                    <button class="action-btn" onclick="reportPost('${postId}')">Report</button>
+                    <button class="action-btn" onclick="deletePost('${postId}')">Delete</button>
                 </div>
             `;
             
-            return postDiv;
+            return post;
         }
 
         function addPost() {
-            const title = document.getElementById("postTitle").value.trim();
             const content = document.getElementById("postContent").value;
             
             if (content.trim() === "") {
@@ -224,12 +218,25 @@
             document.getElementById('totalPosts').textContent = postCount;
             
             const postList = document.getElementById("postList");
-            const postDiv = createPostElement(title, content);
+            const postDiv = createPostElement(null, content);
             postList.prepend(postDiv);
             
-            // Clear inputs
-            document.getElementById("postTitle").value = "";
+            // Clear input
             document.getElementById("postContent").value = "";
+        }
+
+        function displayPosts() {
+            const postList = document.getElementById('postList');
+            postList.innerHTML = ''; // Clear existing posts
+            
+            // Get posts from localStorage
+            const posts = JSON.parse(localStorage.getItem('posts') || '[]');
+            
+            // Display each post
+            posts.forEach(post => {
+                const postElement = createPostElement(post.content, post.timestamp);
+                postList.appendChild(postElement);
+            });
         }
 
         function replyTo(postId) {
@@ -242,30 +249,32 @@
             alert(`Post #${postId} has been reported to moderators.`);
         }
 
-        // Load initial posts from JSON file
-        async function loadInitialPosts() {
-            try {
-                const response = await fetch('initial-posts.json');
-                const data = await response.json();
-                
-                const postList = document.getElementById("postList");
-                
-                // Add all posts with slight delay
-                data.posts.forEach((post, index) => {
-                    setTimeout(() => {
-                        const postDiv = createPostElement(post.title, post.content, post.timestamp);
-                        postList.prepend(postDiv);
-                        postCount++;
-                        document.getElementById('totalPosts').textContent = postCount;
-                    }, index * 100);
-                });
-            } catch (error) {
-                console.error('Error loading initial posts:', error);
-            }
+        // Load initial posts
+        function loadInitialPosts() {
+            fetch('initial-posts.json')
+                .then(response => response.json())
+                .then(data => {
+                    // Get existing posts from localStorage
+                    let posts = JSON.parse(localStorage.getItem('posts') || '[]');
+                    
+                    // Add initial posts if they don't exist
+                    if (posts.length === 0) {
+                        posts = data.posts;
+                        localStorage.setItem('posts', JSON.stringify(posts));
+                    }
+                    
+                    // Display posts
+                    displayPosts();
+                    postCount = posts.length;
+                    document.getElementById('totalPosts').textContent = postCount;
+                })
+                .catch(error => console.error('Error loading initial posts:', error));
         }
 
-        // Load initial posts when the page loads
-        window.onload = loadInitialPosts;
+        // Load posts when page loads
+        window.onload = function() {
+            loadInitialPosts();
+        };
     </script>
 </body>
 </html>
