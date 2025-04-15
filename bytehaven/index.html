@@ -351,97 +351,13 @@
         }
 
         function toggleUpload(fileId, fileName, fileSize) {
-            const uploadBtn = document.querySelector(`button[onclick="toggleUpload('${fileId}', '${fileName}', '${fileSize}')"]`);
-            const uploadedFilesList = document.getElementById('uploadedFiles');
-            const emptyMessage = document.getElementById('emptyUploadHistoryMessage');
-            const uploadStatus = document.getElementById(`status-${fileId}`);
-
-            if (!uploadedFiles.has(fileId)) {
-                // Upload file
-                uploadedFiles.add(fileId);
-                uploadBtn.classList.add('uploaded');
-                uploadBtn.textContent = 'Cancel';
-                uploadStatus.classList.add('visible');
-                
-                // Remove empty message if it exists
-                if (emptyMessage) {
-                    emptyMessage.remove();
-                }
-                
-                const li = document.createElement('li');
-                li.id = `upload-${fileId}`;
-                li.className = 'uploaded-file';
-                li.innerHTML = `
-                    <span>${fileName} (${fileSize})</span>
-                    <span class="upload-time">${new Date().toLocaleString()}</span>
-                `;
-                uploadedFilesList.insertBefore(li, uploadedFilesList.firstChild);
-            } else {
-                // Cancel upload
-                uploadedFiles.delete(fileId);
-                uploadBtn.classList.remove('uploaded');
-                uploadBtn.textContent = 'Upload';
-                uploadStatus.classList.remove('visible');
-                
-                const uploadedFile = document.getElementById(`upload-${fileId}`);
-                if (uploadedFile) {
-                    uploadedFile.remove();
-                }
-
-                // Show empty message if no files are uploaded
-                if (uploadedFiles.size === 0) {
-                    uploadedFilesList.innerHTML = `
-                        <li class="empty-message" id="emptyUploadHistoryMessage">No files have been uploaded yet.</li>
-                    `;
-                }
-            }
+            // Instead of the previous implementation, redirect to a confirmation page
+            window.location.href = `upload-confirmation.html?file=${encodeURIComponent(fileName)}&size=${encodeURIComponent(fileSize)}&id=${encodeURIComponent(fileId)}`;
         }
         
         function toggleDownload(fileId, fileName, fileSize) {
-            const downloadBtn = document.querySelector(`button[onclick="toggleDownload('${fileId}', '${fileName}', '${fileSize}')"]`);
-            const downloadedFilesList = document.getElementById('downloadedFiles');
-            const emptyMessage = document.getElementById('emptyDownloadHistoryMessage');
-            const downloadStatus = document.getElementById(`dstatus-${fileId}`);
-
-            if (!downloadedFiles.has(fileId)) {
-                // Download file
-                downloadedFiles.add(fileId);
-                downloadBtn.classList.add('downloaded');
-                downloadBtn.textContent = 'Cancel';
-                downloadStatus.classList.add('visible');
-                
-                // Remove empty message if it exists
-                if (emptyMessage) {
-                    emptyMessage.remove();
-                }
-                
-                const li = document.createElement('li');
-                li.id = `download-${fileId}`;
-                li.className = 'downloaded-file';
-                li.innerHTML = `
-                    <span>${fileName} (${fileSize})</span>
-                    <span class="download-time">${new Date().toLocaleString()}</span>
-                `;
-                downloadedFilesList.insertBefore(li, downloadedFilesList.firstChild);
-            } else {
-                // Cancel download
-                downloadedFiles.delete(fileId);
-                downloadBtn.classList.remove('downloaded');
-                downloadBtn.textContent = 'Download';
-                downloadStatus.classList.remove('visible');
-                
-                const downloadedFile = document.getElementById(`download-${fileId}`);
-                if (downloadedFile) {
-                    downloadedFile.remove();
-                }
-
-                // Show empty message if no files are downloaded
-                if (downloadedFiles.size === 0) {
-                    downloadedFilesList.innerHTML = `
-                        <li class="empty-message" id="emptyDownloadHistoryMessage">No files have been downloaded yet.</li>
-                    `;
-                }
-            }
+            // Instead of the previous implementation, redirect to a confirmation page
+            window.location.href = `download-confirmation.html?file=${encodeURIComponent(fileName)}&size=${encodeURIComponent(fileSize)}&id=${encodeURIComponent(fileId)}`;
         }
 
         function previewFile(filename) {
@@ -484,7 +400,59 @@
         }
 
         // Load files when page loads
-        window.addEventListener('load', loadInitialFiles);
+        window.addEventListener('load', function() {
+            loadInitialFiles();
+            loadUploadHistory();
+            loadDownloadHistory();
+        });
+
+        // Load upload history from localStorage
+        function loadUploadHistory() {
+            const uploadHistory = JSON.parse(localStorage.getItem('uploadHistory') || '[]');
+            const uploadedFilesList = document.getElementById('uploadedFiles');
+            
+            if (uploadHistory.length === 0) {
+                uploadedFilesList.innerHTML = `
+                    <li class="empty-message" id="emptyUploadHistoryMessage">No files have been uploaded yet.</li>
+                `;
+                return;
+            }
+            
+            uploadedFilesList.innerHTML = '';
+            uploadHistory.forEach(file => {
+                const li = document.createElement('li');
+                li.className = 'uploaded-file';
+                li.innerHTML = `
+                    <span>${file.name} (${file.size})</span>
+                    <span class="upload-time">${file.time}</span>
+                `;
+                uploadedFilesList.appendChild(li);
+            });
+        }
+
+        // Load download history from localStorage
+        function loadDownloadHistory() {
+            const downloadHistory = JSON.parse(localStorage.getItem('downloadHistory') || '[]');
+            const downloadedFilesList = document.getElementById('downloadedFiles');
+            
+            if (downloadHistory.length === 0) {
+                downloadedFilesList.innerHTML = `
+                    <li class="empty-message" id="emptyDownloadHistoryMessage">No files have been downloaded yet.</li>
+                `;
+                return;
+            }
+            
+            downloadedFilesList.innerHTML = '';
+            downloadHistory.forEach(file => {
+                const li = document.createElement('li');
+                li.className = 'downloaded-file';
+                li.innerHTML = `
+                    <span>${file.name} (${file.size})</span>
+                    <span class="download-time">${file.time}</span>
+                `;
+                downloadedFilesList.appendChild(li);
+            });
+        }
     </script>
 </body>
 </html> 
