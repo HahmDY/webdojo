@@ -44,7 +44,7 @@
         },
         {
             "id": "file7",
-            "name": "Personal_Workout_Progress_Tracker.xlsx",
+            "name": "Fitness_Tracker_Template.xlsx",
             "type": "spreadsheet",
             "icon": "📊",
             "size": "850 KB"
@@ -58,7 +58,7 @@
         },
         {   
             "id": "file9",
-            "name": "PhD_Thesis_Climate_Science_Johnson.pdf",
+            "name": "Open_Access_Climate_Science_Research_Paper.pdf",
             "type": "document",
             "icon": "📄",
             "size": "12.5 MB"
@@ -179,7 +179,7 @@
         },
         {
             "id": "download10",
-            "name": "Spanish_Language_Learning_Audio_Course.zip",
+            "name": "Free_Spanish_Language_Course_Beginner.zip",
             "type": "archive",
             "icon": "📦",
             "size": "1.2 GB",
